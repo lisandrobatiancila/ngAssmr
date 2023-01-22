@@ -1,0 +1,26 @@
+.nav-container {
+    background-color: var(--ddColor);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul li {
+    float: left;
+}
+.right-content li a {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 10px;
+}
+.right-content li a:hover {
+    background-color: #555;
+    color: var(--whiteColor)
+}

@@ -1,0 +1,3 @@
+
+{"fileName":"browsePropertyServerController.js","functionName":"BAVehicleProperties()","errorMessage":"@BAVP2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_1_22"}
+{"fileName":"fileServerController.js","functionName":"uploadVehiclesInfo()","errorMessage":"@UVF2-INVALID_CREDENTIALS","log_date":"2023_1_22"}

@@ -1,0 +1,62 @@
+<section class="container">
+    <div class="row">
+        <form name="uploadVehiclePropertyForm" class="row">
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">owner* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'owner'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="owner" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'owner'}" placeholder="Owner name">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">contactno.* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'contactno'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="contactno" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'contactno'}" placeholder="Contactno">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">brand* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'brand'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="brand" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'brand'}" placeholder="Brand">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">model* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'model'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="model" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'model'}" placeholder="Model">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">location* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'location'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="location" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'location'}" placeholder="Location">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">downpayment* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'downpayment'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="downpayment" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'downpayment'}" placeholder="Downpayment">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">installment paid* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'installmentpaid'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="installment paid" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'installmentpaid'}" placeholder="Installment paid">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">installment duration* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'installmentduration'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="installment duration" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'installmentduration'}" placeholder="Installment duration">
+            </div>
+            <div class="col-4 mt-4">
+                <label for="brand" class="text-capitalize">delinquent* <span class="badge badge-danger" ng-show="errorObject.errorInfo.fields === 'delinquent'">{{ errorObject.errorInfo.message }}</span></label>
+                <input type="text" name="delinquent" ng-class="{'form-control': true, 'error_fields': errorObject.errorInfo.has_error && errorObject.errorInfo.fields === 'delinquent'}" placeholder="Delinquent">
+            </div>
+            <div class="col-12 mt-4">
+                <label for="description" class="text-capitalize">description</label><br>
+                <textarea name="description" class="form-control w-100" rows="10"></textarea>
+            </div>
+            <div class="col-12 mt-5">
+                <div class="col-5">
+                    <span class="badge badge-danger" ng-show="!fileInstance.file">Please include a file</span>
+                    <div class="upload-file" ng-model="fileInstance.file" ngf-multiple="true" ngf-select>
+                        <label for="upload" class="text-capitalize text-center">
+                            upload file size*: {{ fileInstance.file.length || 0}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center mt-5">
+                <button class="btn btn-outline-primary text-capitalize" style="width: 200px;"
+                    ng-click="saveVehiclePropertyForm(uploadVehiclePropertyForm)">submit</button>
+                <button class="btn btn-outline-info text-capitalize" style="width: 200px;"
+                    ng-click="resetVehiclePropertyForm(uploadVehiclePropertyForm)">reset form</button>
+            </div>
+        </form>
+    </div>
+</section>

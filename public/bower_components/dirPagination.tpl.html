@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="range-label">
+            <h6 class="rangedisplay">
+                Showing {{ range.total > 0 ? range.lower : 0 }} - {{ range.upper }} of {{ range.total }}
+            </h6>
+        </div>
+    </div>
+    <div class="col-md-8 clearfix">
+        <ul class="pagination pagination-md pull-right" ng-if="1 < pages.length || !autoHide">
+            <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+                <a href="" ng-click="setCurrent(1)">First</a>
+            </li>
+            <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">
+                <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">&laquo;</a>
+            </li>
+            <li ng-repeat="pageNumber in pages track by $index"
+                ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+                <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+            </li>
+            <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope">
+                <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">&raquo;</a>
+            </li>
+            <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+                <a href="" ng-click="setCurrent(pagination.last)">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>

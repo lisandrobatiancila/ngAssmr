@@ -1,0 +1,26 @@
+<section>
+    <div ng-include="'views/static/header.html'"></div>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-sm-5" ng-repeat="vdata in vehicleDATA">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ vdata.vehicleIMAGES[0] }}" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Vehicle <span class="badge badge-info">{{ vdata.vehicleBrand.toUpperCase() }}</span></h5>
+                      <div>
+                        <label>owner: <span>{{ vdata.vehicleOwner }}</span></label>
+                      </div>
+                      <div>
+                        <label>contactno: <span>{{ vdata.vehicleContactno }}</span></label>
+                      </div>
+                      <div>
+                        <label>vehicleModel: <span>{{ vdata.vehicleModel }}</span></label>
+                      </div>
+                      <button class="btn btn-outline-info w-100 text-capitalize">assume</button>
+                      <button class="btn btn-outline-default w-100 mt-1 text-capitalize">view details</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>

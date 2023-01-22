@@ -1,0 +1,13 @@
+<section>
+    <div ng-include="headerTemplateURL"></div>
+
+    <div ng-switch="current_route_link">
+        <div ng-switch-when="">
+            <div ng-include="current_template"></div>
+        </div>
+        <div ng-switch-when="signup">
+            <div ng-include="current_template"></div>
+        </div>
+    </div>
+
+</section>

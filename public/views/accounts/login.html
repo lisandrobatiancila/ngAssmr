@@ -1,0 +1,47 @@
+<section class="container">
+    <div class="modal-header">
+        <h4>Login Assmr</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger text-center" ng-show="errorObjects.errorInfo.has_error && errorObjects.errorInfo.message === 'INVALID_CREDENTIALS'">
+            <span class="text-capitalize">invalid credentials</span>
+        </div>
+
+        <form name="loginUserForm">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address <span class="badge badge-danger" ng-show="errorObjects.errorInfo.fields === 'email'">{{ errorObjects.errorInfo.message }}</span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+                <input type="email" ng-class="{'form-control': true, error_fields: errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'email'}" 
+                    ng-focus="errorObjects = {}"
+                    placeholder="Enter email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password <span class="badge badge-danger" ng-show="errorObjects.errorInfo.fields === 'password'">{{ errorObjects.errorInfo.message }}</span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+                <input type="password" ng-class="{'form-control': true, error_fields: errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'password'}" 
+                    ng-focus="errorObjects = {}"
+                    placeholder="******">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100"
+                ng-click="submitLoginUserForm(loginUserForm)">Submit</button>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <button class="btn btn-link"
+                        ng-click="signupUserForm()">You don't have an account?</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

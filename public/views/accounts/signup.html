@@ -1,0 +1,101 @@
+<section class="container p-1">
+    <div ng-class="{'badge badge-info': !pageActionMessage.has_error && !pageActionMessage.has_success,
+        'badge badge-success': !pageActionMessage.has_error && pageActionMessage.has_success,
+        'badge badge-danger': pageActionMessage.has_error && !pageActionMessage.has_success}">
+        <span>{{ pageActionMessage.message }}</span>
+    </div>
+
+    <div class="col">
+        <form name="signupUserForm">
+            <div class="row">
+                <div>
+                    <span class="text-uppercase">complete details</span>
+                </div>
+                <div class="col">
+                    <div class="mb-5">
+                        <h5 class="text-uppercase">basic information</h5>
+                        <div class="col mt-4">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="firstname">firstname</label>
+                                    <input type="text" name="firstname" 
+                                        ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'first name'}" placeholder="firstname">
+                                </div>
+                                <div class="col-4">
+                                    <label for="firstname">middlename</label>
+                                    <input type="text" name="middlename" 
+                                        ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'middle name'}" placeholder="middlename">
+                                </div>
+                                <div class="col-4">
+                                    <label for="firstname">lastname</label>
+                                    <input type="text" name="lastname" 
+                                        ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'last name'}" placeholder="lastname">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <label for="gender">gender</label>
+                                    <select name="gender" id="gender" class="form-control">
+                                        <option ng-repeat="g in ['Male', 'Female']">{{ g }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <label for="contact#">contact no.</label>
+                                    <input type="text" ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'contactno'}" placeholder="09+">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- basic information -->
+                    </div>
+    
+                    <div class="mb-5">
+                        <h5 class="text-uppercase">address</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <select name="province" id="province" class="form-control">
+                                    <option value="province">province</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select name="city" id="city" class="form-control">
+                                    <option value="city">city</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select name="barangay" id="barangay" class="form-control">
+                                    <option value="barangay">barangay</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- address information -->
+                    </div>
+    
+                    <div>
+                        <h5>account information</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="email">email</label>
+                                <input type="email" name="email" 
+                                    ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'email'}" id="email" placeholder="email@gmail.com">
+                            </div>
+                            <div class="col-4">
+                                <label for="password">password</label>
+                                <input type="password" name="password" 
+                                    ng-class="{'form-control': true, 'error_fields': errorObjects.errorInfo.has_error && errorObjects.errorInfo.fields === 'password'}" id="password" placeholder="******">
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <button class="btn btn-outline-success text-capitalize" style="width: 200px;"
+                        ng-click="submitUserForm(signupUserForm)">signup</button>
+                    <button class="btn btn-outline-info text-capitalize" style="width: 200px;"
+                        ng-click="resetUserForm(signupUserForm)">reset form</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

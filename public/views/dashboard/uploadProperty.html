@@ -1,0 +1,37 @@
+<div ng-include="'views/static/header.html'"></div>
+<section class="container p-2">
+    <div class="col">
+        <a href="#" class="btn btn-info text-capitalize">
+            back
+        </a>
+        <div class="col-4 mb-3">
+            <label for="propertytype" class="text-capitalize">property type</label><br>
+            <select name="propType" class="form-control" id="propType" ng-model="propType">
+                <option ng-repeat="pt in ['vehicle', 'realestate', 'jewelry']" class="text-capitalize">{{ pt }}</option>
+            </select>
+        </div>
+
+        <div ng-switch="propType">
+            <div ng-switch-when="vehicle">
+                <div ng-include="'views/dashboard/properties/vehicle.html'"></div>
+            </div>
+            <div ng-switch-when="realestate">
+                <div ng-include="'views/dashboard/properties/realestate.html'"></div>
+            </div>
+            <div ng-switch-when="jewelry">
+                <div ng-include="'views/dashboard/properties/jewelry.html'"></div>
+            </div>
+            <div ng-switch-default>
+                <div class="upload-file">
+                    <p class="display-4 text-muted text-center">
+                        choose a property type to upload
+                    </p>
+                    <div style="width: 100%;height: 50vh;display: flex;justify-content: center; align-items: center;">
+                        <i class="far fa-images fa-lg fa-10x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

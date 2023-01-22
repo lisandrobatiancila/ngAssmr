@@ -1,0 +1,13 @@
+:root {
+    --ddColor: #ddd;
+    --whiteColor: #fff;
+    --errorColor: #ec691d;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.error_fields {
+    border: 1px solid var(--errorColor);
+}
