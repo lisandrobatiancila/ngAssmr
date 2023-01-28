@@ -2,3 +2,29 @@
     border: 1px dotted red;
     padding: 5px;
 }
+fieldset {
+    border: 2px dotted var(--ddColor);
+}
+.message {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.message > i {
+    color: var(--tealColor);
+}
+.message:hover {
+    transform: translateY(-3px);
+}
+.message:hover > i {
+    color: var(--shopeeColor);
+}
+
+.message:active {
+    transform: translateY(5px);
+    box-shadow: none;
+}

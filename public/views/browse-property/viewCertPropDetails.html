@@ -1,0 +1,199 @@
+<section>
+    <div ng-include="viewPropDetailsTemplate"></div>
+    <div ng-if="object.has_error">
+        <div class="container-fluid">
+            <div class="row pl-5 pr-5">
+                <div class="col-12 pl-5 pr-5">
+                    <div class="vh-100 text-center d-flex flex-column justify-content-center">
+                        <div class="alert alert-danger">
+                            {{ object.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-switch="propertyType">
+        <div ng-switch-when="vehicle">
+            <div class="container-fluid mt-2">
+                <!-- <form> -->
+                <fieldset class="px-1">
+                    <legend class="text-capitalize" style="margin-left: 20px;">{{ propertyType }}</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-12">
+                                <img ng-src="{{ certainPropDATA.vehicleIMAGES[0] }}" style="width: 100%;" alt="certain property image">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label for="owner" class="display-5 lead text-capitalize">owner: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleOwner }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="contactno" class="display-5 lead text-capitalize">contactno: </label>
+                                <span class="lead ml-2">{{ certainPropDATA.vehicleContactno }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="location" class="display-5 lead text-capitalize">location: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleLocation }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="vehicle name" class="display-5 lead text-capitalize">vehicle name: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleBrand }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="vehicle model" class="display-5 lead text-capitalize">vehicle model: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleModel }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="downpayment" class="display-5 lead text-capitalize">downpayment: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleDownpayment }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment paid" class="display-5 lead text-capitalize">installment paid: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleInstallmentPaid }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment duration" class="display-5 lead text-capitalize">installment duration: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleInstallmentDuration }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="delinquent" class="display-5 lead text-capitalize">delinquent: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.vehicleDelinquent }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="description" class="display-5 lead text-capitalize">description: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.description }}</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-info w-100 mt-1 mb-2 text-capitalize">assume</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- </form> -->
+            </div>
+        </div> <!--view certain vehicle !-->
+        <div ng-switch-when="realestate">
+            <div class="container-fluid mt-2">
+                <fieldset class="px-1">
+                    <legend class="text-capitalize" style="margin-left: 20px;">{{ propertyType }}</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-12">
+                                <img ng-src="{{ certainPropDATA.realestateIMG[0] }}" style="width: 100%;" alt="certain property image">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <span class="badge badge-info text-capitalize">{{ certainPropDATA.realestateType }}</span>
+                            <div class="input-group">
+                                <label for="owner" class="display-5 lead text-capitalize">owner: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateOwner }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="contactno" class="display-5 lead text-capitalize">contactno: </label>
+                                <span class="lead ml-2">{{ certainPropDATA.realestateContactno }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="location" class="display-5 lead text-capitalize">location: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateLocation }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="downpayment" class="display-5 lead text-capitalize">downpayment: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateDownpayment }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment paid" class="display-5 lead text-capitalize">installment paid: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateInstallmentpaid }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment duration" class="display-5 lead text-capitalize">installment duration: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateInstallmentduration }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="delinquent" class="display-5 lead text-capitalize">delinquent: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateDelinquent }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="description" class="display-5 lead text-capitalize">description: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.realestateDescription }}</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-info w-100 mt-1 mb-2 text-capitalize">assume</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div> <!--view certain realestate !-->
+        <div ng-switch-when="jewelry">
+            <div class="container-fluid mt-2">
+                <!-- <form> -->
+                <fieldset class="px-1">
+                    <legend class="text-capitalize" style="margin-left: 20px;">{{ propertyType }}</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-12">
+                                <img ng-src="{{ certainPropDATA.jewelryIMG[0] }}" style="width: 100%;" alt="certain property image">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <label for="owner" class="display-5 lead text-capitalize">owner: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryOwner }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="contactno" class="display-5 lead text-capitalize">contactno: </label>
+                                <span class="lead ml-2">{{ certainPropDATA.jewelryContactno }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="location" class="display-5 lead text-capitalize">location: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryLocation }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="jewelry name" class="display-5 lead text-capitalize">jewelry name: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryName }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="jewelry model" class="display-5 lead text-capitalize">jewelry model: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryModel }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="downpayment" class="display-5 lead text-capitalize">downpayment: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryDownpayment }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment paid" class="display-5 lead text-capitalize">installment paid: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryInstallmentpaid }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="installment duration" class="display-5 lead text-capitalize">installment duration: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryInstallmentduration }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="delinquent" class="display-5 lead text-capitalize">delinquent: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.jewelryDelinquent }}</span>
+                            </div>
+                            <div class="input-group">
+                                <label for="description" class="display-5 lead text-capitalize">description: </label>
+                                <span class="lead text-capitalize ml-2">{{ certainPropDATA.description }}</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-info w-100 mt-1 mb-2 text-capitalize">assume</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- </form> -->
+            </div>
+        </div> <!--view certain jewelry !-->
+        
+    </div>
+
+    <div class="message">
+        <i class="fab fa-facebook-messenger" style="font-size: 50px;"></i>
+    </div>
+
+</section>

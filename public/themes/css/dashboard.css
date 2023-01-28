@@ -1,62 +1,12 @@
-#nav {
-    background-color: var(--ddColor);
-    position: sticky;
-    padding: 15px 20px;
-    top: 0;
-}
-.burger-container {
-    padding: 10px;
-    width: 50px;
-}
-.burger-container:hover {
-    cursor: pointer;
-}
-.burger-container > * {
-    margin-top: 3px;
-    transition: transform 1s;
-}
-.burger-one, .burger-two, .burger-three {
-    width: 30px;
-    height: 5px;
-    background-color: #000;
+ul li a {
+    color: var(--whiteColor);
+    text-decoration: none !important;
     display: block;
 }
-.burger-container:hover > .burger-one, .burger-container:hover .burger-two, .burger-container:hover > .burger-three {
-    background-color: var(--whiteColor);
+li a:hover {
+    background-color: var(--fiveColor);
+    color: var(--whiteColor);
 }
-.burger-one-transform {
-    transform: rotate(50deg);
-    transition: transform 1s;
-}
-.burger-two-transform {
-    transform: rotate(-45deg);
-    margin-top: -5px;
-    transition: transform 1s;
-}
-.burger-three-hide {
-    display: none;
-}
-.sidebar-container {
-    width: 20%;
-    height: 100%;
-    background-color: var(--ddColor);
-}
-.sidebar-content {
-    padding: 5px;
-}
-.ul-flex {
-    display: flex;
-    flex-direction: column;
-}
-.li-item a{
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-}
-.li-item a:hover{
-    background-color: #555;
-    color: var(--whiteColor)
-}
-.active-success {
-    background-color: #555;
+.dashboard_active {
+    background-color: var(--fiveColor) !important;
 }

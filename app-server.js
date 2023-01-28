@@ -9,7 +9,8 @@ app.use(express.static(`${__dirname}/public`))
 let controllerLists = [
     "./server/controller/accountsServerController.js",
     "./server/controller/fileServerController.js",
-    "./server/controller/browsePropertyServerController.js"
+    "./server/controller/browse-property/browsePropertyServerController.js",
+    "./server/controller/browse-property/viewCertPropServerController.js"
 ]
 
 app.use(express.static("public"))

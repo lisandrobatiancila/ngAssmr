@@ -9,7 +9,7 @@ module.exports = {
             log_date: `${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}`
         }
 
-        fs.appendFileSync("logs/tets.xt", "\n"+JSON.stringify(errorObj))
+        fs.appendFileSync("logs/error_logs.xt", "\n"+JSON.stringify(errorObj, 2))
     },
     checkIfAccountsExists(pool, queryString, queryData, queryTag, callback) {
         pool.getConnection((error, connection) => {

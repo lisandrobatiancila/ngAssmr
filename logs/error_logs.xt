@@ -1,0 +1,113 @@
+
+{"fileName":"browsePropertyServerController.js","functionName":"BAJewelryProperties()","errorMessage":"@BAJP2-Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM jewelries j JOIN jewelry_images ji ON             j.jewelryID = ji.jewel...' at line 1","log_date":"2023_1_28"}
+{"fileName":"fileServerController.js","functionName":"uploadVehiclesInfo()","errorMessage":"@UVF2-INVALID_CREDENTIALS","log_date":"2023_1_28"}
+{"fileName":"fileServerController.js","functionName":"uploadVehiclesInfo()","errorMessage":"@UVF2-INVALID_CREDENTIALS","log_date":"2023_1_28"}
+{"fileName":"fileServerController.js","functionName":"uploadVehiclesInfo()","errorMessage":"@UVF2-INVALID_CREDENTIALS","log_date":"2023_1_28"}
+{"fileName":"fileServerController.js","functionName":"uploadRealestateInfo()","errorMessage":"@URI2-unAuthorized","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info","log_date":"2023_1_28"}
+{"fileName":"browsePropertyServerController.js","functionName":"BAVehicleProperties()","errorMessage":"@BAVP2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info::realestate","log_date":"2023_1_28"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-User modified some info::realestate","log_date":"2023_1_28"}
+{"fileName":"fileServerController.js","functionName":"uploadRealestateInfo()","errorMessage":"@URI2-unAuthorized","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}
+{"fileName":"viewCertPropServerController.js","functionName":"getCertainProperty()","errorMessage":"@GCP2-Error: ER_NO_SUCH_TABLE: Table 'assmr.jewelrties' doesn't exist","log_date":"2023_1_29"}

@@ -288,7 +288,7 @@ async function uploadRealesteInfo(req, res) {
         const isAuthorizedToPost = cookies && userEmail != "."
 
         if(isAuthorizedToPost) {
-
+            lastAlgo = "@URI3"
             let userID = await new Promise((resolve, reject) => {
                 lastAlgo = "@URI3"
                 let sql = "SELECT userID FROM accounts WHERE accountEmail =?"
@@ -334,8 +334,10 @@ async function uploadRealesteInfo(req, res) {
             responseObject.realestateID = realestateID["realestateID"]
             res.json(responseObject)
         }
-        else
+        else {
+            commonLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-unAuthorized`)
             res.json(serverResponse.serverResponse(500))
+        }
     }
     catch(error) {
         commonLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error.message}`)

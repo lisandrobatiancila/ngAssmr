@@ -342,6 +342,8 @@ function submitRealestateForms($http, data, config, uibModal, cb) {
         .then(response => {
             if(response.data.code == 401)
                 modalMessages(uibModal, response.data)
+            else if(response.data.code == 500)
+                modalMessages(uibModal, response.data)
             else
                 cb(response.data)
         })

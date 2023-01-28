@@ -1,37 +1,55 @@
-<section style="height: 100vh;">
-    <nav id="nav">
-        <div class="burger-container" ng-click="toggleBurgerMenu()">
-            <div class="burger-one"></div>
-            <div class="burger-two"></div>
-            <div class="burger-three"></div>
+<div class="container-fluid fixed-top bg-dark py-3">
+    <div class="row collapse show no-gutters d-flex h-100 position-relative">
+        <div class="col-3 px-0 w-sidebar navbar-collapse collapse d-none d-md-flex">
+            <!-- spacer col -->
         </div>
-    </nav>
-    <div class="sidebar-container">
-        <div class="sidebar-content">
-            <ul class="ul-flex">
-                <li class="li-item" ng-class="{'active-success': true}">
-                    <a href="#" class="text-capitalize">dashboard</a>
-                </li>
-                <li class="li-item">
-                    <a href="#" class="text-capitalize">
-                        my property
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </li>
-                <li class="li-item">
-                    <a href="#" class="text-capitalize">feedbacks</a>
-                </li>
-                <li class="li-item">
-                    <a href="#" class="text-capitalize">messages</a>
-                </li>
-                <li class="li-item">
-                    <a href="#" class="text-capitalize">inquiries</a>
-                </li>
-                <li class="li-item">
-                    <a href="#" class="text-capitalize">settings</a>
-                </li>
-            </ul>
-        </div>        
+        <div class="col px-2 px-md-0">
+            <!-- toggler -->
+            <a data-toggle="collapse" href="#" data-target=".collapse" role="button" class="p-1">
+                <i class="fa fa-bars fa-lg"></i>
+            </a>
+        </div>
     </div>
-
-</section>
+</div>
+<div class="container-fluid px-0 h-100">
+    <div class="row vh-100 collapse show no-gutters d-flex h-100 position-relative">
+        <div class="col-3 p-0 vh-100 h-100 w-sidebar navbar-collapse collapse d-none d-md-flex sidebar mt-5">
+            <!-- fixed sidebar -->
+            <div class="position-fixed bg-dark text-white h-100 w-sidebar">
+                <ul class="nav flex-column mt-3">
+                    <li class="nav-item" ng-class="{'dashboard_active': currURL === '/dashboard'}">
+                        <a href="#!dashboard" class="p-3 text-capitalize">dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="p-3 text-capitalize">
+                            my property &nbsp;&nbsp;&nbsp;
+                            <span class="fas fa-chevron-right"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-class="{'dashboard_active': currURL === 'feedbacks'}">
+                        <a href="#!dashboard#feedbacks" class="p-3 text-capitalize">feedbacks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="p-3 text-capitalize">messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!dashboard/inquiries" class="p-3 text-capitalize">inquiries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="p-3 text-capitalize">settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col p-3 mt-5">
+            <div ng-switch="currURL">
+                <div ng-switch-when="/dashboard">
+                    <div ng-include="templateVIEW"></div>
+                </div>
+                <div ng-switch-when="feedbacks" ng-controller="feedbacksController">
+                    <div ng-include="templateVIEW"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    

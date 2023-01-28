@@ -28,6 +28,18 @@ assmrAPP.config(function($routeProvider, $locationProvider, $provide) {
             templateUrl: "views/browse-property/vehicle.html",
             controller: "browseVehicleController"
         })
+        .when("/browse-property/jewelry", {
+            templateUrl: "views/browse-property/jewelry.html",
+            controller: "browseJewelryController"
+        })
+        .when("/browse-property/realestate", {
+            templateUrl: "views/browse-property/realestate.html",
+            controller: "browseRealestateController"
+        })
+        .when("/browse-property/:propertyType/:propertyID", {
+            templateUrl: "views/browse-property/viewCertPropDetails.html",
+            controller: "viewPropDetailsController"
+        })
         .otherwise("/")
 })
 
@@ -56,6 +68,10 @@ assmrAPP.controller("userMessagesModalController", ["$scope", "$uibModalInstance
             $scope.modal_header_title = "Message"
             $scope.modal_body_title = "Please login first."
         break;
+        case 500:
+            $scope.modal_header_title = "Message"
+            $scope.modal_body_title = "Please login first."
+        break;
         case 200:
             $scope.modal_header_title = "Message"
             $scope.modal_body_title = "Request was successful."
@@ -70,4 +86,9 @@ assmrAPP.controller("userMessagesModalController", ["$scope", "$uibModalInstance
     $scope.buttonCancel = function() {
         $uibModalInstance.close()
     }
+}]);
+
+assmrAPP.controller("headerController", ["$scope", "$location", function($scope, $location) {
+    $scope.path = $location.path().split('/')[2];
+
 }])

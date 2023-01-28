@@ -2,6 +2,9 @@
     --ddColor: #ddd;
     --whiteColor: #fff;
     --errorColor: #ec691d;
+    --tealColor: teal;
+    --fiveColor: #555;
+    --shopeeColor: #fd922e;
 }
 * {
     padding: 0;

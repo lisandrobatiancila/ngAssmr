@@ -1,26 +1,33 @@
 <section>
     <div ng-include="'views/static/header.html'"></div>
-    <div class="container">
-        <div class="row mt-2">
-            <div class="col-sm-5" ng-repeat="vdata in vehicleDATA">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ vdata.vehicleIMAGES[0] }}" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Vehicle <span class="badge badge-info">{{ vdata.vehicleBrand.toUpperCase() }}</span></h5>
-                      <div>
-                        <label>owner: <span>{{ vdata.vehicleOwner }}</span></label>
-                      </div>
-                      <div>
-                        <label>contactno: <span>{{ vdata.vehicleContactno }}</span></label>
-                      </div>
-                      <div>
-                        <label>vehicleModel: <span>{{ vdata.vehicleModel }}</span></label>
-                      </div>
-                      <button class="btn btn-outline-info w-100 text-capitalize">assume</button>
-                      <button class="btn btn-outline-default w-100 mt-1 text-capitalize">view details</button>
-                    </div>
-                  </div>
+    <div class="d-flex justify-content-start mt-2">
+        <!-- <div class="row"> -->
+          <div class="col-4" ng-repeat="vd in vehicleDATA">
+            <div class="card">
+              <div class="card-header d-flex flex-column">
+                <img ng-src="{{ vd.vehicleIMAGES[0] }}" alt="vehicle image" style="width: 100%;">
+                <span class="badge badge-info text-center text-capitalize mt-2 p-2">{{ vd.vehicleBrand }}</span>
+              </div>
+              <div class="card-body">
+                <div>
+                  <label for="owner" class="text-capitalize">owner: </label>
+                  <span class="text-capitalize">{{ vd.vehicleOwner }}</span>
+                </div>
+                <div>
+                  <label for="model" class="text-capitalize">model: </label>
+                  <span class="text-capitalize">{{ vd.vehicleModel }}</span>
+                </div>
+                <div>
+                  <label for="location" class="text-capitalize">location: </label>
+                  <span class="text-capitalize">{{ vd.vehicleLocation }}</span>
+                </div>
+                <div>
+                  <button class="btn btn-outline-success w-100 text-capitalize">assume</button>
+                  <button class="btn btn-outline-secondary w-100 text-capitalize mt-1" ng-click="viewCertainVehicleDetails(vd.propertyID)">view details</button>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        <!-- </div> -->
     </div>
 </section>

@@ -1,4 +1,4 @@
-<nav class="nav-container">
+<nav class="nav-container" ng-controller="headerController">
   <div class="left-content">
     <h3>ASSMR</h3>
   </div>
@@ -13,9 +13,9 @@
             browse property
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item text-capitalize" href="#!browse-property/vehicle">vehicle</a>
-            <a class="dropdown-item text-capitalize" href="#">realestate</a>
-            <a class="dropdown-item text-capitalize" href="#">jewelry</a>
+            <a class="dropdown-item text-capitalize" ng-class="{'active': path === 'vehicle'}" href="#!browse-property/vehicle">vehicle</a>
+            <a class="dropdown-item text-capitalize" ng-class="{'active': path === 'realestate'}" href="#!browse-property/realestate">realestate</a>
+            <a class="dropdown-item text-capitalize" ng-class="{'active': path === 'jewelry'}" href="#!browse-property/jewelry">jewelry</a>
           </div>
         </div>
       </li>

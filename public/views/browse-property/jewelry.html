@@ -1,0 +1,34 @@
+<section>
+    <div ng-include="jewelryHeaderTemplates"></div>
+    <div class="d-flex justify-content-start mt-2">
+        <!-- <div class="row"> -->
+            <div class="col-4" ng-repeat="jd in jewelryDATA">
+                <div class="card">
+                    <div class="card-header d-flex flex-column">
+                        <img ng-src="{{ jd.jewelryIMG[0] }}" alt="jewelry image" style="width: 100%;">
+                        <span class="badge badge-info text-capitalize text-center mt-2 p-2">{{ jd.jewelryModel }}</span>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <label for="owner" class="text-capitalize">owner: </label>
+                            <span class="text-capitalize">{{ jd.jewelryOwner }}</span>
+                        </div>
+                        <div>
+                            <label for="model" class="text-capitalize">model: </label>
+                            <span class="text-capitalize">{{ jd.jewelryModel }}</span>
+                        </div>
+                        <div>
+                            <label for="location" class="text-capitalize">location: </label>
+                            <span class="text-capitalize">{{ jd.jewelryLocation }}</span>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-success text-capitalize w-100">assume</button>
+                            <button class="btn btn-outline-secondary text-capitalize w-100 mt-1"
+                                ng-click="viewCertainJewelryDetails(jd.propertyID)">view details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+</section>

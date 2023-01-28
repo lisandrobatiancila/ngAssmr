@@ -1,0 +1,28 @@
+<section>
+    <div ng-include="realestateHeaderTemplate"></div>
+    <div class="d-flex flex-content-start mt-2">
+        <div class="col-4" ng-repeat="rd in realestateDATA">
+            <div class="card">
+                <div class="card-header">
+                    <img ng-src="{{ rd.realestateIMG[0] }}" alt="realestate image" style="width: 100%;">
+                    <span class="badge badge-info text-capitalize w-100 mt-2 p-2">{{ rd.realestateType }}</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <label for="owner" class="text-capitalize">owner: </label>
+                        <span class="text-capitalize">{{ rd.realestateOwner }}</span>
+                    </div>
+                    <div>
+                        <label for="location" class="text-capitalize">location: </label>
+                        <span class="text-capitalize">{{ rd.realestateLocation }}</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-success text-capitalize w-100">assume</button>
+                        <button class="btn btn-outline-secondary text-capitalize w-100 mt-1"
+                            ng-click="viewCertainRealestateDetails(rd.propertyID)">view details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

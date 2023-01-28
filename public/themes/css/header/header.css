@@ -24,3 +24,6 @@ ul li {
     background-color: #555;
     color: var(--whiteColor)
 }
+.active {
+    background-color: #6c757d !important;
+}
