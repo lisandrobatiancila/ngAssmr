@@ -92,3 +92,14 @@ assmrAPP.controller("headerController", ["$scope", "$location", function($scope,
     $scope.path = $location.path().split('/')[2];
 
 }])
+
+assmrAPP.service("checkUserIsLoggedIn", function() {
+    this.isLoggedIn = function($http, $headers, $body) {
+        return new Promise((resolve, reject) => {
+            let url = HELPER.apiRoot("isLoggedIn")
+            $http.post(url, $headers, $body)
+                .then(response => resolve(response))
+                .catch((error) => reject(error))
+        })
+    }
+})

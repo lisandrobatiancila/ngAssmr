@@ -153,6 +153,31 @@ function loginUser(req, res) {
     }
 }
 
+function isLoggedIn(req, res) {
+    var GLOBAL_FUNCTION = "isLoggedIn()"
+    var responseObject = {}
+    var lastAlgo = "@ILI1"
+    try{
+        console.log(req.headers);
+        let reqSession = typeof req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"] == "undefined"?".":req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"]
+        let reqUserName = req.body["userName"] == "undefined"?".":req.body["userName"]
+        
+        let isValid = reqSession != "." && reqUserName != "."
+        
+        if(isValid) {
+            lastAlgo = "@ILI2"
+            console.log(req.cookies);
+        }
+        else {
+            responseObject = serverResponse.serverResponse(401)
+            res.json(responseObject)
+        }
+    }
+    catch(error) {
+
+    }
+}
+
 router.post("/signupUser", (req, res) => {
     signupUser(req, res)
 })
@@ -160,5 +185,9 @@ router.post("/signupUser", (req, res) => {
 router.post("/loginUser", (req, res) => {
     loginUser(req, res)
 })
+
+router.post("/isLoggedIn", (req, res) => {
+    isLoggedIn(req, res)
+}); // check if the user is logged in, before assuming the property
 
 module.exports = router

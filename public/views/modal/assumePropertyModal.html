@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h4 class="text-capitalize">{{ title }}</h4>
+    <button class="close float-right"
+        ng-click="closeModal()">&times;</button>
+</div>
+<div class="modal-body">
+    <div ng-switch="title">
+        <div ng-switch-when="vehicle">
+            <div ng-include="assumptionTemplate"></div>
+        </div>
+    </div>
+</div>
