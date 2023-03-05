@@ -1,9 +1,8 @@
-assmrAPP.controller("viewPropDetailsController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+assmrAPP.controller("viewPropDetailsController", ["$scope", "$routeParams", "$http", "$uibModal", function($scope, $routeParams, $http, $uibModal) {
     $scope.viewPropDetailsTemplate = "views/static/header.html"
     let { propertyType, propertyID } = $routeParams;
     $scope.object = {}
     $scope.propertyType = propertyType;
-
     getCertainProperty(propertyType, propertyID)
 
     function getCertainProperty (propertyType, propertyID) {
@@ -36,7 +35,6 @@ assmrAPP.controller("viewPropDetailsController", ["$scope", "$routeParams", "$ht
                                 j.jewelryIMG = JSON.parse(j.jewelryIMG);
                             })
                             $scope.certainPropDATA = clientResponse.data[0];
-                            console.log($scope.certainPropDATA);
                         break;
                         case "realestate":
                             angular.forEach(clientResponse.data, (r, k) => {
@@ -53,4 +51,32 @@ assmrAPP.controller("viewPropDetailsController", ["$scope", "$routeParams", "$ht
                 console.log(error);
             })
     }
-}])
+    $scope.assumeCertainProperty = function(certainProperty) {
+        $uibModal.open({
+            templateUrl: "views/modal/assumePropertyModal.html",
+            controller: "AssumeCertainPropertyModalController",
+            backdrop: "static",
+            resolve: {
+                $ModalData: function() {
+                    return { certainProperty, propertyType }
+                }
+            }
+        })
+    }
+}]);
+
+assmrAPP.controller("AssumeCertainPropertyModalController", ["$scope", "$ModalData", "$uibModalInstance", function($scope, $ModalData, $uibModalInstance) {
+    let { certainProperty, propertyType } = $ModalData
+
+    $scope.title = propertyType
+    if(propertyType == "vehicle")
+        $scope.assumptionTemplate = "views/forms/assumeVehicleForm.html"
+    else if(propertyType == "realestate")
+        $scope.assumptionTemplate = "views/forms/assumeRealestateForm.html"
+    else if(propertyType == "jewelry")
+        $scope.assumptionTemplate = "views/forms/assumeJewelryForm.html"
+
+    $scope.closeModal = function() {
+        $uibModalInstance.close()
+    }
+}]);
