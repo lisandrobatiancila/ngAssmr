@@ -40,5 +40,8 @@ module.exports = {
                     callback(false)
             })
         })
+    },
+    genIndex() {
+
     }
 }

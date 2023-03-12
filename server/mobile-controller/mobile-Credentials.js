@@ -47,7 +47,11 @@ router.route("/mobile-signup")
                                 sqlData = [[userID, email, password]]
                                 mysqlCRUD.insertQuery(mysqlDBConn.accounts_table, sql, [sqlData], [GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}-${lastAlgo}`], (response) => {
                                     if(response != "error") {
-                                        responseObj = serverResponse.serverResponse(200);
+                                        responseObj = {
+                                            status: 1,
+                                            code: serverResponse.serverResponse(200),
+                                            message: "Creating account was successfull."
+                                        };
                                         res.json(responseObj);
                                     }
                                     else {
@@ -175,4 +179,104 @@ router.route("/mobile-signup")
 
         res.json(addresess);
     })
+
+router.route("/mobile-signin")
+    .post((req, res) => {
+        const GLOBAL_ACTION_NAME = "mobile-signin";
+        var resultObj = {},
+            lastAlgo = "";
+
+        try{
+            lastAlgo = "@MS1"
+            let {email, password } = req.body;
+            const validateFields = [email, password];
+            const vfLen = validateFields.length;
+            var validationPass = true;
+            for(let i = 0; i < vfLen; i++) {
+                if(!/[^\s]/.test(validateFields[i])) {
+                    validationPass = false;
+                    break;
+                }
+            }
+            if(validationPass) {
+                lastAlgo = "@MS2";
+                password = sha1(password);
+                let sql = "SELECT a.userID, a.accountEmail, a.accountPassword, CONCAT(CONCAT(UCASE(LEFT(b.userLname, 1))), CONCAT(RIGHT(b.userLname, LENGTH(b.userLname)-1)), ', ', CONCAT(LEFT(b.userFname, 1), RIGHT(b.userFname, LENGTH(b.userFname)-1)), ' ', UCASE(LEFT(b.userMname, 1)), '.') as fullName FROM accounts a JOIN users b ON b.userID = a.userID WHERE accountEmail =?";
+                const sqlData = [email];
+
+                mysqlCRUD.selectQuery(mysqlDBConn.accounts_table, sql, sqlData, [GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}-${lastAlgo}`], (response) => {
+                    if(response != "error" && response.constructor == [].constructor && response.length > 0) {
+                        lastAlgo = "@MS3";
+                        const dbPassword = response[0].accountPassword;
+                        if(dbPassword == password) {
+                            
+                            resultObj = {
+                                status: 1,
+                                code: serverResponse.serverResponse(200).code,
+                                message: serverResponse.serverResponse(200).message,
+                                activeUser: [
+                                    {
+                                        userID: response[0].userID,
+                                        email,
+                                        fullName: response[0].fullName
+                                    }
+                                ]
+                            };
+                            return res.json(resultObj);
+                        }
+                        else {
+                            lastAlgo = "@MS4";
+                            commobLib.errorLogs(GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}`, `${lastAlgo}`);
+                            resultObj = {
+                                status: 0,
+                                message: "Invalid credentials",
+                                code: serverResponse.serverResponse(401).code,
+                                activeUser: []
+                            };
+                            return res.json(resultObj);
+                        }
+                    }
+                    else if(response.constructor == [].constructor && response.length == 0) {
+                        lastAlgo = "@MS4.1";
+                        commobLib.errorLogs(GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}`, `${lastAlgo}`);
+                        resultObj = {
+                            status: 0,
+                            message: "Invalid credentials",
+                            code: serverResponse.serverResponse(401).code,
+                            activeUser: []
+                        };
+                        return res.json(resultObj);
+                    }
+                    else {
+                        lastAlgo = "@MS5";
+                        commobLib.errorLogs(GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}`, `${lastAlgo}`);
+                        resultObj = {
+                            status: 0,
+                            message: serverResponse.serverResponse(500).message,
+                            code: serverResponse.serverResponse(500).code,
+                            activeUser: []
+                        };
+                        return res.json(resultObj);
+                    }
+                })
+            }
+            else {
+                lastAlgo = "@MS6";
+                commobLib.errorLogs(GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}`, `${lastAlgo}`);
+                resultObj = {
+                    status: 0,
+                    message: "Empty fields",
+                    code: serverResponse.serverResponse(406).code,
+                    activeUser: []
+                };
+                return res.json(resultObj);
+            }
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}`, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            return res.json(resultObj);
+        }
+    });
+
 module.exports = router;

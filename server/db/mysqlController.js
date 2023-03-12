@@ -6,12 +6,15 @@ const crud = {
         pool.getConnection((error, connection) => {
             if(error) {
                 commonLib.errorLogs(queryTag[0], queryData[1], `${queryTag[2]}-${error}`.toString())
+                callback("error")
             }
             connection.query(queryString, queryData, (error, result) => {
                 connection.release()
                 connection.destroy()
-                if(error)
+                if(error){
                     commonLib.errorLogs(queryTag[0], queryData[1], `${queryTag[2]}-${error}`.toString())
+                    callback("error")
+                }
                 else
                     callback("success")
             })
@@ -28,11 +31,14 @@ const crud = {
         pool.getConnection((error, connection) => {
             if(error) {
                 commonLib.errorLogs(queryTag[0], queryTag[1], `${queryTag[2]}-${error}`.toString())
+                callback("error")
             }
             
             connection.query(queryString, queryData, (error, response) => {
-                if(error)
+                if(error){
                     commonLib.errorLogs(queryTag[0], queryTag[1], `${queryTag[2]}-${error}`.toString())
+                    callback("error")
+                }
                 else
                     callback(response)
             })

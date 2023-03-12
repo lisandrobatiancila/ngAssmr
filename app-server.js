@@ -13,7 +13,8 @@ let controllerLists = [
     "./server/web-controller/browse-property/viewCertPropServerController.js",
 
     // MOBILE CONTROLLER
-    "./server/mobile-controller/mobile-Credentials.js"
+    "./server/mobile-controller/mobile-Credentials.js",
+    "./server/mobile-controller/assumption-of-properties.js"
 ]
 
 app.use(express.static("public"))

@@ -16,6 +16,10 @@ module.exports = {
                 message = "INVALID_CREDENTIALS"
                 status = 0
             break;
+            case 406:
+                message = "NO_ACCEPTABLE"
+                status = 0
+            break;
             case 500:
                 message = "SERVER_ERROR"
                 status = 0
