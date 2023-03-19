@@ -1,10 +1,10 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 
 app.use(express.static(`${__dirname}/public`))
     .get("/", (req, res) => {
-        res.sendFile(`${__dirname}/public/views/index.html`)
-    })
+        res.sendFile(`${__dirname}/public/views/index.html`);
+    });
 
 let controllerLists = [
     "./server/web-controller/accountsServerController.js",
@@ -14,14 +14,15 @@ let controllerLists = [
 
     // MOBILE CONTROLLER
     "./server/mobile-controller/mobile-Credentials.js",
-    "./server/mobile-controller/assumption-of-properties.js"
-]
+    "./server/mobile-controller/mobile-assumption-of-properties.js",
+    "./server/mobile-controller/mobile-post-properties.js"
+];
 
-app.use(express.static("public"))
-app.use("/uploads", express.static("uploads"))
+app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 
 controllerLists.map(cl => {
-    app.use("/api", require(cl))
-})
+    app.use("/api", require(cl));
+});
     
 module.exports = app

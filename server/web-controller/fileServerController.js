@@ -43,7 +43,7 @@ async function uploadVehiclesInfo(req, res) {
             let propertyID = await new Promise((resolve, reject) => {
                 lastAlgo = "@UV4"
                 let sql = "INSERT INTO properties VALUES?"
-                const propertyData = [["", userID['userID'], propType.replace("s", "")]]
+                const propertyData = [["", userID['userID'], propType.replace("s", ""), 0, "available"]]
 
                 mysqlCRUDController.insertQuery(mysqlDBConnection.properties_table, sql, [propertyData], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo],
                     (response) => {
@@ -106,28 +106,28 @@ async function uploadVehicleImages(req, res) {
     let lastAlgo = "@UVI1",
         responseObject = {}
     try{
-        lastAlgo = "@UVI2"
-        var form = new formidable.IncomingForm()
+        lastAlgo = "@UVI2";
+        var form = new formidable.IncomingForm();
 
         let execIMG = await new Promise((resolve, reject) => {
-            let tempFields = {}
-            let tempFiles = []
+            let tempFields = {};
+            let tempFiles = [];
             form.parse(req, (error, fields, files) => {
-                files['file[0]'].filepath = "uploads/vehicles/"+files['file[0]'].originalFilename
-                tempFields = fields
-            })
+                files['file[0]'].filepath = "uploads/vehicles/"+files['file[0]'].originalFilename;
+                tempFields = fields;
+            });
             form.on("fileBegin", (fk, fv) => {
-                fv.filepath = "uploads/vehicles/"+fv.originalFilename
+                fv.filepath = "uploads/vehicles/"+fv.originalFilename;
 
-                tempFiles.push(fv.filepath)
-            })
+                tempFiles.push(fv.filepath);
+            });
             setTimeout(() => {
                 resolve({
                     tempFields,
                     tempFiles: tempFiles
                 })
             }, 1500);
-        })
+        });
         
         let saveVehicleIMGSResponse = await new Promise((resolve, reject) => {
             lastAlgo = "@UVI3"
@@ -137,16 +137,16 @@ async function uploadVehicleImages(req, res) {
             mysqlCRUDController.insertQuery(mysqlDBConnection.vehicle_images_table, sql, [[["", propertyID, JSON.stringify(execIMG.tempFiles)]]], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                 if(response === "success") {
                     responseObject = serverResponse.serverResponse(200)
-                    res.json(responseObject)
+                    resolve(responseObject)
                 }
                 else {
                     responseObject = serverResponse.serverResponse(500)
-                    res.json(responseObject)
+                    resolve(responseObject)
                 }
             })
-        })
+        });
 
-        res.json(saveVehicleIMGSResponse)
+        res.json(saveVehicleIMGSResponse);
     }
     catch(error) {
         responseObject = serverResponse.serverResponse(500)
@@ -179,7 +179,7 @@ async function uploadJewelryInfo(req, res) {
             let propertyID = await new Promise((resolve, reject) => {
                 lastAlgo = "@UJI4"
                 let sql = "INSERT INTO properties VALUES?"
-                let propertyDATA = [["", userID["userID"], "jewelry"]]
+                let propertyDATA = [["", userID["userID"], "jewelry", 0, "available"]]
                 mysqlCRUDController.insertQuery(mysqlDBConnection.properties_table, sql, [propertyDATA], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                     if(response === "success") {
                         lastAlgo = "@UIJ5"
@@ -301,7 +301,7 @@ async function uploadRealesteInfo(req, res) {
             let propertyID = await new Promise((resolve, reject) => {
                 lastAlgo = "@URI4"
                 let sql = "INSERT INTO properties VALUES?"
-                let propertyDATA = [["", userID["userID"], "realestate"]]
+                let propertyDATA = [["", userID["userID"], "realestate", 0, "available"]]
                 mysqlCRUDController.insertQuery(mysqlDBConnection.properties_table, sql, [propertyDATA], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION ,lastAlgo], (response) => {
                     if(response === "success") {
                         sql = "SELECT max(propertyID) propertyID FROM properties"
