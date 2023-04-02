@@ -466,7 +466,7 @@ router.route("/mobile-upload-jewelry-image")
                 responseObj.propertyID = 0;
                 res.json(responseObj);
             }
-        })
+        });
     })
 /* END OF ADDING JEWELRY */
 module.exports = router;

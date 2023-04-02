@@ -3,3 +3,16 @@
 {"fileName":"mobile-post-properties","errorMessage":"@MURIMG1-Error: ER_NO_SUCH_TABLE: Table 'assmr.realesate_images' doesn't exist","log_date":"2023_3_19"}
 {"fileName":"mobile-post-properties","errorMessage":"@MURIMG1-Error: ER_NO_SUCH_TABLE: Table 'assmr.realesate_images' doesn't exist","log_date":"2023_3_19"}
 {"fileName":"mobile-post-properties","errorMessage":"@MURIMG1-Error: ER_NO_SUCH_TABLE: Table 'assmr.realesate_images' doesn't exist","log_date":"2023_3_19"}
+{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_1"}
+{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_1"}
+{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_1"}
+{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_1"}
+{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_1"}
+{"fileName":"m","functionName":"o","errorMessage":"b-Error: ER_BAD_FIELD_ERROR: Unknown column 'a.vehicleID' in 'on clause'","log_date":"2023_4_2"}
+{"fileName":"mobile-my-property.js","functionName":"mobileMyVehicleProperties()","errorMessage":"Error getting vehicle recrods-> @MVP3","log_date":"2023_4_2"}
+{"fileName":"m","functionName":"o","errorMessage":"b-Error: ER_BAD_FIELD_ERROR: Unknown column 'a.vehicleID' in 'field list'","log_date":"2023_4_2"}
+{"fileName":"mobile-my-property.js","functionName":"mobileMyVehicleProperties()","errorMessage":"Error getting vehicle recrods-> @MVP3","log_date":"2023_4_2"}
+{"fileName":"m","functionName":"o","errorMessage":"b-Error: ER_BAD_FIELD_ERROR: Unknown column 'a.vehicleID' in 'field list'","log_date":"2023_4_2"}
+{"fileName":"mobile-my-property.js","functionName":"mobileMyVehicleProperties()","errorMessage":"Error getting vehicle recrods-> @MVP3","log_date":"2023_4_2"}
+{"fileName":"m","functionName":"o","errorMessage":"b-Error: ER_BAD_FIELD_ERROR: Unknown column 'a.vehicleID' in 'field list'","log_date":"2023_4_2"}
+{"fileName":"mobile-my-property.js","functionName":"mobileMyVehicleProperties()","errorMessage":"Error getting vehicle recrods-> @MVP3","log_date":"2023_4_2"}
