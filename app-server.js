@@ -16,7 +16,9 @@ let controllerLists = [
     "./server/mobile-controller/mobile-Credentials.js",
     "./server/mobile-controller/mobile-assumption-of-properties.js",
     "./server/mobile-controller/mobile-post-properties.js",
-    "./server/mobile-controller/mobile-my-properties.js"
+    "./server/mobile-controller/mobile-my-properties.js",
+    "./server/mobile-controller/mobile-update-property.js",
+    "./server/mobile-controller/mobile-remove-properties.js"
 ];
 
 app.use(express.static("public"));

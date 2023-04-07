@@ -51,8 +51,27 @@ const crud = {
             })
         })
     },
-    updateQuery: function() {
-
+    updateQuery: function(pool, queryString, queryData, queryTag, callback) {
+        pool.getConnection((error, connection) => {
+            if(error) {
+                commonLib.errorLogs(queryTag[0], queryTag[1], `${queryTag[2]}-${error}`.toString());
+                callback("error")
+            }
+            
+            connection.query(queryString, queryData, (error, response) => {
+                if(error) {
+                    commonLib.errorLogs(queryTag[0], queryTag[1], `${queryTag[2]}-${error}`.toString());
+                    callback("error");
+                }
+                else
+                    callback(response);
+            })
+            connection.on("error", (error) => {
+                connection.release();
+                connection.destroy();
+                callback("error");
+            });
+        })
     },
     deleteQuery: function() {
 
