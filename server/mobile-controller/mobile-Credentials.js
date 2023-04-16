@@ -5,6 +5,7 @@ const serverResponse = require("../common/serverResonses");
 const mysqlCRUD = require("../db/mysqlController"); 
 const mysqlDBConn = require("../db/dbConnection");
 const sha1 = require("sha1");
+const addressLists = require("./address-lists");
 
 const GLOBAL_FILE_NAME = "mobile-Credentials.js";
 router.route("/mobile-signup")
@@ -91,93 +92,8 @@ router.route("/mobile-signup")
         
     })
     .get((req, res) => {
-        const addresess = [
-            {
-                provinces: [
-                    {
-                        barangay: [
-                            "alboquerque",
-                            "ivisan"
-                        ],
-                        name: "bohol"
-                    },
-                    {
-                        barangay: ["mojon", "baigad"],
-                        name: "bantayan"
-                    }
-                ],
-                city: "cebu"
-            }, // ceub
-            {
-                provinces: [
-                    {
-                        barangay: [
-                            "concepcion",
-                            "duran",
-                            "poblacion norte",
-                            "santa cruz",
-                            "santa rita",
-                            "santa monica"
-                        ],
-                        name: "dumalag"
-                    },
-                    {
-                        barangay: [
-                            "balogo",
-                            "blasco",
-                            "natividad",
-                            "poblacion",
-                            "san antonio"
-                        ],
-                        name: "pilar"
-                    },
-                    {
-                        barangay: [
-                            "agbalo",
-                            "bago grande",
-                            "bato",
-                            "cogon"
-                        ],
-                        name: "panay"
-                    }
-                ],
-                city: "capiz"
-            }, // capiz
-            {
-                provinces: [
-                    {
-                        barangay: [
-                            "alguisoc",
-                            "rizal",
-                            "balcon maravilla",
-                            "poblacion"
-                        ],
-                        name: "jordan"
-                    },
-                    {
-                        barangay: [
-                            "la paz",
-                            "magamay",
-                            "lucmayan",
-                            "calaya"
-                        ],
-                        name: "nueva valencia"
-                    },
-                    {
-                        barangay: [
-                            "alegria",
-                            "ayangan",
-                            "milan",
-                            "orocan"
-                        ],
-                        name: "sibunag"
-                    }
-                ],
-                city: "guimaras"
-            }, // guimaras
-        ];
-
-        res.json(addresess);
+        
+        res.json(addressLists);
     })
 
 router.route("/mobile-signin")

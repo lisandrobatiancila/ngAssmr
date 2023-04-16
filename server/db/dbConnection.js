@@ -74,6 +74,22 @@ const connection = {
         password: process.env.PASSWORD,
         database: process.env.DATABASE,
         debug: false
+    }),
+    assumers_table: mysql.createPool({
+        connectionLimit: 100,
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
+        debug: false
+    }),
+    assumptions_table: mysql.createPool({
+        connectionLimit: 100,
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
+        debug: false
     })
 }
 

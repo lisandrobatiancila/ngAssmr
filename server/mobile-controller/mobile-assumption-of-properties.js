@@ -4,6 +4,7 @@ const commobLib = require("../common/commonFunction");
 const serverResponse = require("../common/serverResonses");
 const dbConn = require("../db/dbConnection");
 const mysqlConn = require("../db/mysqlController");
+const addressLists = require("./address-lists");
 
 const GLOBAL_FILE_NAME = "assumption-of-properties.js";
 
@@ -41,7 +42,7 @@ router.route("/vehicle-property-lists/:propStartID")
             repsonseObj = serverResponse.serverResponse(500);
             return res.json(repsonseObj);
         }
-    });
+    }); // get all vehicle properties
 
 router.route("/realestate-property-lists/:propStartID")
     .get((req, res) => {
@@ -76,7 +77,7 @@ router.route("/realestate-property-lists/:propStartID")
             repsonseObj = serverResponse.serverResponse(500);
             return res.json(repsonseObj);
         }
-    });
+    }); // get all realestate properties
 
 router.route("/jewelries-properry-lists/:propStartID")
     .get((req, res) => {
@@ -106,10 +107,154 @@ router.route("/jewelries-properry-lists/:propStartID")
             repsonseObj = serverResponse.serverResponse(500);
             return res.json(repsonseObj);
         }
-    });
+    }); // get all jewelry properties
 
 router.post("/assumer-info", (req, res) => {
 
-});
+}); // get assumer info if they want to assume
+
+router.route("/get-certain-vehicle/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION = "getCertainVehicle()";
+        var lastAlgo = "",
+            repsonseObj = {};
+            
+        try{
+            const { propertyID } = req.params;
+            const query = "SELECT a.*, b.assumptionCount, b.propertyStatus, c.vehicleIMAGES FROM vehicles a INNER JOIN properties b ON a.propertyID = b.propertyID INNER JOIN vehicle_images c ON a.vehicleID = c.vehicleID AND a.propertyID = ?",
+                querydata = [propertyID];
+
+            mysqlConn.selectQuery(dbConn.vehicles_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.vehicle = response;
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            });
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // get a certain vehicle property
+
+router.route("/get-assumer-information/:userID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION ="getAssumerInformation()";
+        var lastAlgo = "",
+            repsonseObj = {};
+        try{
+            const { userID } = req.params;
+            const query = "SELECT userFname, userMname, userLname, userAddress, userContactno FROM users WHERE userID =?",
+                querydata = [userID];
+            mysqlConn.selectQuery(dbConn.users_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.assumerInfoModels = response;
+                    repsonseObj.addressInfoModels = addressLists;
+                    console.log(response);
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            })
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    });
+
+router.route("/process-assumption-request")
+    .post((req, res) => {
+        const GLOBAL_FUNCTION = "processAssumptionRequest()";
+        var repsonseObj = {},
+            lastAlgo = "";
+        try{
+            const { userID, propertyID, firstname, middlename, lastname, contactno, address, salary, work } = req.body;
+            const fields = [firstname, middlename, lastname, contactno, address, salary, work],
+                fieldsLen = fields.length;
+            const is_passed = true;
+            for(let i = 0; i < fieldsLen; i++) {
+                if(!/[^\s]/.test(fields[i])) {
+                    is_passed = false;
+                    break;
+                }
+            } // end of for loop
+            if(is_passed) {
+                let query = "SELECT userID, propertyID FROM properties WHERE propertyID =? AND userID =?",
+                    querydata = [propertyID, userID];
+                mysqlConn.selectQuery(dbConn.properties_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                    if(response != "error") {
+                        if(response.length == 0) {
+                            query = "INSERT INTO assumers VALUES?";
+                querydata = [[userID, address, salary, work]];
+                mysqlConn.insertQuery(dbConn.assumers_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                    if(response != "error") {
+                        query = "SELECT NOW() as now, MAX(assumerID) as assumerID FROM assumers LIMIT 1";
+                        querydata = [[userID, propertyID]];
+                        
+                        mysqlConn.selectQuery(dbConn.assumers_table, query, [], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                            if(response != "error") {
+                                query = "INSERT INTO assumptions VALUES?";
+                                
+                                const { assumerID, now } = response[0];
+                                querydata = [[userID, propertyID, assumerID, now]];
+
+                                mysqlConn.insertQuery(dbConn.assumptions_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                                    if(response != "error") {
+                                        repsonseObj = serverResponse.serverResponse(200);
+                                        repsonseObj.message = "Property assumption was successfull!"
+                                        res.json(repsonseObj);
+                                    }
+                                    else {
+                                        repsonseObj = serverResponse.serverResponse(500);
+                                        res.json(repsonseObj);
+                                    }
+                                });
+                            }
+                            else {
+                                repsonseObj = serverResponse.serverResponse(500);
+                                res.json(repsonseObj);
+                            }
+                        });
+                    }
+                    else {
+                        repsonseObj = serverResponse.serverResponse(500);
+                        res.json(repsonseObj);
+                    }
+                });
+                        } // check if assumer is the property owner
+                        else {
+                            repsonseObj = serverResponse.serverResponse(400);
+                            repsonseObj.message = "You can not assume your own property!"
+                            res.json(repsonseObj);
+                        }
+                    }
+                    else {
+                        repsonseObj = serverResponse.serverResponse(500);
+                        res.json(repsonseObj);
+                    }
+                });
+            }
+            else {
+                repsonseObj = serverResponse.serverResponse(400); // a bad request
+                res.json(repsonseObj);
+            }
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // user assume a property
 
 module.exports = router;
