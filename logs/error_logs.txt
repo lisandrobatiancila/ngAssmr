@@ -1,5 +1,0 @@
-
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS6","log_date":"2023_4_15"}
-{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_15"}
-{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_16"}
-{"fileName":"assumption-of-properties.js","functionName":"vehicleAssumptionPropertyLists()","errorMessage":"@VAPL2-Error: connect ECONNREFUSED ::1:3306","log_date":"2023_4_16"}
