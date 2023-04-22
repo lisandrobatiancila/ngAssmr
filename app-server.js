@@ -18,7 +18,8 @@ let controllerLists = [
     "./server/mobile-controller/mobile-post-properties.js",
     "./server/mobile-controller/mobile-my-properties.js",
     "./server/mobile-controller/mobile-update-property.js",
-    "./server/mobile-controller/mobile-remove-properties.js"
+    "./server/mobile-controller/mobile-remove-properties.js",
+    "./server/mobile-controller/mobile-feedbacks.js"
 ];
 
 app.use(express.static("public"));

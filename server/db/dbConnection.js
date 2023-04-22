@@ -90,6 +90,14 @@ const connection = {
         password: process.env.PASSWORD,
         database: process.env.DATABASE,
         debug: false
+    }),
+    feedbacks_table: mysql.createPool({
+        connectionLimit: 100,
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
+        debug: false
     })
 }
 

@@ -143,6 +143,65 @@ router.route("/get-certain-vehicle/:propertyID")
         }
     }); // get a certain vehicle property
 
+router.route("/get-certain-realestate/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION ="getCertainRealestate()";
+        var lastAlgo = "@GCR1",
+            repsonseObj = {};
+        try{
+            lastAlgo = "@GCR2";
+            const { propertyID } = req.params;
+            const query = "SELECT a.*, b.assumptionCount, b.propertyStatus, c.realestateIMG FROM realestates a INNER JOIN properties b ON a.propertyID = b.propertyID INNER JOIN realestate_images c ON a.realestateID = c.realestateID AND b.propertyID = ?";
+            const querydata = [propertyID];
+
+            mysqlConn.selectQuery(dbConn.realestates_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.realestate = response;
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            });
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // get a certain realestate property
+
+router.route("/get-certain-jewelry/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION = "getCertainJewelry()";
+        var lastAlgo = "",
+            repsonseObj = {};
+        try{
+            const { propertyID } = req.params;
+            const query = "SELECT a.*, b.assumptionCount, b.propertyStatus, c.jewelryIMG FROM jewelries a INNER JOIN properties b ON a.propertyID = b.propertyID INNER JOIN jewelry_images c ON a.jewelryID = c.jewelryID AND b.propertyID = ?";
+            const querydata = [propertyID];
+
+            mysqlConn.selectQuery(dbConn.jewelries_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.jewelry = response;
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            });
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // get a certain jewelry property
+
 router.route("/get-assumer-information/:userID")
     .get((req, res) => {
         const GLOBAL_FUNCTION ="getAssumerInformation()";
@@ -170,7 +229,7 @@ router.route("/get-assumer-information/:userID")
             repsonseObj = serverResponse.serverResponse(500);
             res.json(repsonseObj);
         }
-    });
+    }); // get assumer-information
 
 router.route("/process-assumption-request")
     .post((req, res) => {
