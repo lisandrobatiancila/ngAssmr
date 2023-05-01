@@ -65,7 +65,7 @@ router.route("/mobile-settings/updatePI")
         catch(error) {
             commonLib.errorLogs(GLOBAL_FILE_NAME, )
         }
-    });
+    }); // update user Personal Information
 
 router.route("/mobile-settings/updateAI")
     .post((req, res) => {
@@ -96,6 +96,6 @@ router.route("/mobile-settings/updateAI")
             resultObj = serverResponse.serverResponse(500);
             res.json(resultObj);
         }
-    });
+    }); // update user Account Information
 
 module.exports = router
