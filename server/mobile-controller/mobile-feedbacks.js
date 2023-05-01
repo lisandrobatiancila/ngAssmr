@@ -46,7 +46,7 @@ router.route("/get-all-feedbacks")
             responseObj = {};
         try{
             lastAlgo = "@GAFB2";
-            const query = "SELECT a.*, CONCAT(CONCAT(UPPER(LEFT(b.userLname, 1)), RIGHT(b.userLname, LENGTH(b.userLname)-1)), ', ', CONCAT(LEFT(b.userFname, 1), RIGHT(b.userFname, LENGTH(b.userFname)-1)), ' ', UPPER(LEFT(b.userMname, 1)), '.') as user_full_name FROM feedbacks a INNER JOIN users b ON b.userID = a.userID";
+            const query = "SELECT a.*, CONCAT(CONCAT(UPPER(LEFT(b.userLname, 1)), RIGHT(b.userLname, LENGTH(b.userLname)-1)), ', ', CONCAT(UPPER(LEFT(b.userFname, 1)), RIGHT(b.userFname, LENGTH(b.userFname)-1)), ' ', UPPER(LEFT(b.userMname, 1)), '.') as user_full_name FROM feedbacks a INNER JOIN users b ON b.userID = a.userID";
             mysqlConn.selectQuery(dbConn.feedbacks_table, query, [], [GLOBAL_FILENAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                 if(response != "error") {
                     responseObj = serverResponse.serverResponse(200);
@@ -54,7 +54,8 @@ router.route("/get-all-feedbacks")
                     response = response.map((data => {
                         const date = date_fn.format(data.feedback_date, 'MMM dd, yyyy');
                         data.feedback_date = date;
-                    }))
+                    }));
+                    
                     res.json(responseObj);
                 }
                 else {
