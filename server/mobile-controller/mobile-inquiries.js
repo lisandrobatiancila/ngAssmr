@@ -38,13 +38,30 @@ router.route("/get-my-assumptions/:userID")
         }
     }); // this get all the property that was assumed by active users
 
-router.route("/get-my-inquired-property")
+router.route("/get-my-inquired-properties/:userID")
     .get((req, res) => {
         const GLOBAL_FUNCTIONNAME = "getMyInquiredProperty()";
-        var lastAlgo = "@GMI1",
+        var lastAlgo = "@GMIP1",
             resultObj = {};
         try{
+            lastAlgo = "@GMIP2";
+            const { userID } = req.params;
+            const sql = "SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, vi.vehicleIMAGES as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN vehicles v ON v.propertyID = a.propertyID JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID UNION ALL SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, ji.jewelryIMG as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN jewelries j ON j.propertyID = a.propertyID JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID UNION ALL SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, ri.realestateIMG as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN realestates r ON r.propertyID = a.propertyID JOIN realestate_images ri ON r.realestateID = ri.realestateID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID";
+            const querydata = [userID, userID, userID];
 
+            mysqlController.selectQuery(dbConn.users_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], function(response) {
+                if(response != "error") {
+                    resultObj = serverResponse.serverResponse(200);
+                    resultObj.inquiries = response;
+                    
+                    res.json(resultObj);
+                }
+                else {
+                    commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`)
+                    resultObj = serverResponse.serverResponse(500);
+                    res.json(resultObj);
+                }
+            })
         }
         catch(error) {
             commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`)

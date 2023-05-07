@@ -289,16 +289,28 @@ router.route("/process-assumption-request")
                                             mysqlConn.selectQuery(dbConn.assumers_table, query, [], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                                                 if(response != "error") {
                                                     lastAlgo = "@PAR5";
-                                                    query = "INSERT INTO assumptions(userID, propertyID, assumerID, transaction_date) VALUES?";
+                                                    query = "INSERT INTO assumptions(userID, propertyID, assumerID, assumption_status, transaction_date) VALUES?";
                                                     
                                                     const { assumerID, now } = response[0];
-                                                    querydata = [[userID, propertyID, assumerID, now]];
+                                                    querydata = [[userID, propertyID, assumerID, 'ACTIVE', now]];
 
                                                     mysqlConn.insertQuery(dbConn.assumptions_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                                                         if(response != "error") {
-                                                            repsonseObj = serverResponse.serverResponse(200);
-                                                            repsonseObj.message = "Property assumption was successfull!"
-                                                            res.json(repsonseObj);
+                                                            query=  "UPDATE properties SET assumptionCount = (assumptionCount+1) WHERE propertyID =?";
+                                                            querydata = [propertyID]
+                                                            
+                                                            mysqlConn.updateQuery(dbConn.properties_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], function(response) {
+                                                                if(response != "error") {
+                                                                    repsonseObj = serverResponse.serverResponse(200);
+                                                                    repsonseObj.message = "Property assumption was successfull!"
+                                                                    res.json(repsonseObj);
+                                                                }
+                                                                else {
+                                                                    repsonseObj = serverResponse.serverResponse(500);
+                                                                    response.message = "We can not process your request at a moment!"
+                                                                    res.json(repsonseObj);
+                                                                }
+                                                            })
                                                         }
                                                         else {
                                                             repsonseObj = serverResponse.serverResponse(500);
