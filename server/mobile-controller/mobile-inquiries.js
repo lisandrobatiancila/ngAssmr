@@ -4,6 +4,7 @@ const commonLib = require("../common/commonFunction");
 const serverResponse = require("../common/serverResonses");
 const dbConn = require("../db/dbConnection");
 const mysqlController = require("../db/mysqlController");
+const connection = require("../db/dbConnection");
 
 const GLOBAL_FILENAME = "mobile-inquiries.js";
 
@@ -14,9 +15,9 @@ router.route("/get-my-assumptions/:userID")
             resultObj = {};
         try{
             const { userID } = req.params;
-            const sql = "SELECT v.vehicleOwner as info1, v.vehicleBrand as info2, v.vehicleModel as info3, vi.vehicleIMAGES as info4, 'vehicle' as info5, p.propertyStatus as info6 FROM vehicles v INNER JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID INNER JOIN properties p ON p.propertyID = v.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID AND a.userID =?\
-            UNION ALL SELECT j.jewelryOwner as info1, j.jewelryName as info2, j.jewelryModel as info3, ji.jewelryIMG as info4, 'jewelry' as info5, p.propertyStatus as info6 FROM jewelries j INNER JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID INNER JOIN properties p ON p.propertyID = j.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID AND a.userID =?\
-            UNION ALL SELECT r.realestateOwner as info1, r.realestateType as info2, '' as info3, ri.realestateIMG as info4, 'realestate' as info5, p.propertyStatus as info6 FROM realestates r INNER JOIN realestate_images ri ON r.realestateID = ri.realestateID INNER JOIN properties p ON p.propertyID = r.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID AND a.userID =?",
+            const sql = "SELECT u.userID, v.vehicleID as ID, p.propertyID as propID, v.vehicleOwner as info1, v.vehicleBrand as info2, v.vehicleModel as info3, vi.vehicleIMAGES as info4, 'vehicle' as info5, p.propertyStatus as info6 FROM vehicles v INNER JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID INNER JOIN properties p ON p.propertyID = v.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?\
+            UNION ALL SELECT u.userID, j.jewelryID as ID, p.propertyID as propID, j.jewelryOwner as info1, j.jewelryName as info2, j.jewelryModel as info3, ji.jewelryIMG as info4, 'jewelry' as info5, p.propertyStatus as info6 FROM jewelries j INNER JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID INNER JOIN properties p ON p.propertyID = j.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?\
+            UNION ALL SELECT u.userID, r.realestateID as ID, p.propertyID as propID, r.realestateOwner as info1, r.realestateType as info2, '' as info3, ri.realestateIMG as info4, 'realestate' as info5, p.propertyStatus as info6 FROM realestates r INNER JOIN realestate_images ri ON r.realestateID = ri.realestateID INNER JOIN properties p ON p.propertyID = r.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?",
                 querydata = [userID, userID, userID];
             mysqlController.selectQuery(dbConn.assumptions_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
                 if(response != "error") {
@@ -38,6 +39,9 @@ router.route("/get-my-assumptions/:userID")
         }
     }); // this get all the property that was assumed by active users
 
+/*
+    - the top is My Properties
+*/
 router.route("/get-my-inquired-properties/:userID")
     .get((req, res) => {
         const GLOBAL_FUNCTIONNAME = "getMyInquiredProperty()";
@@ -68,6 +72,99 @@ router.route("/get-my-inquired-properties/:userID")
             resultObj = serverResponse.serverResponse(500);
             res.json(resultObj);
         }
-    }); // this get the active user properties that was assumed by other users
+    }); // this get the active user posted properties that was assumed by other users
 
+/*
+    - The top is Inquired Property
+*/
+
+router.route("/get-my-certain-assumed-property/:propertyType/:propertyID/:itemID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTIONNAME = "getCertainAssumedProperty()";
+        var lastAlgo = "@GCAP1",
+            resultObj = {}
+        try {
+            const { propertyType, propertyID, itemID } = req.params;
+            let sql = "",
+                querydata = [];
+
+            switch(propertyType) {
+                case "vehicle":
+                    sql = "SELECT a.propertyID as propertyID, a.vehicleID  as itemID, a.vehicleOwner as owner, a.vehicleContactno as contactno, a.vehicleLocation as location, a.vehicleDownpayment as downpayment, a.vehicleInstallmentDuration as duration, a.vehicleDelinquent as delinquent, 'vehicle' as propertyType, '' as type, a.description as description, b.vehicleIMG as img, c.assumptionCount FROM vehicles a JOIN vehicle_images b ON a.vehicleID = b.vehicleID JOIN properties c ON c.propertyID = a.propertyID AND a.propertyID = ? AND a.vehicleID = ?";
+                    querydata = [propertyID, itemID];
+
+                    mysqlController.selectQuery(dbConn.realestates_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                        if(response != "error") {
+                            resultObj = serverResponse.serverResponse(200);
+                            resultObj.certainProperty = response;
+                            res.json(resultObj);
+                        }
+                        else {
+                            resultObj = serverResponse.serverResponse(500);
+                            res.json(resultObj);
+                        }
+                    })
+                break;
+                case "realestate":
+                    sql = "SELECT a.propertyID as propertyID, a.realestateID  as itemID, a.realestateOwner as owner, a.realestateContactno as contactno, a.realestateLocation as location, a.realestateDownpayment as downpayment, a.realestateInstallmentduration as duration, a.realestateDelinquent as delinquent, 'realestate' as propertyType, a.realestateType as type, a.realestateDescription as description, b.realestateIMG as img, c.assumptionCount FROM realestates a JOIN realestate_images b ON a.realestateID = b.realestateID JOIN properties c ON c.propertyID = a.propertyID AND a.propertyID = ? AND a.realestateID = ?";
+                    querydata = [propertyID, itemID];
+
+                    mysqlController.selectQuery(dbConn.realestates_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                        if(response != "error") {
+                            resultObj = serverResponse.serverResponse(200);
+                            resultObj.certainProperty = response;
+                            res.json(resultObj);
+                        }
+                        else {
+                            resultObj = serverResponse.serverResponse(500);
+                            res.json(resultObj);
+                        }
+                    })
+                break;
+                case "jewelry":
+                    sql = "";
+                break;
+                default:
+                    commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo} - no propertyType`);
+                    resultObj = serverResponse.serverResponse(500);
+                    res.json(resultObj);
+            }
+        }
+        catch(error) {
+            commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            res.json(resultObj);
+        }
+    });
+
+router.route("/get-owner-information/:ownerID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTIONNAME ="getOwnerInformation()";
+        var lastAlgo = "",
+            resultObj = {};
+        try{
+            const { ownerID } = req.params;
+            let sql = "SELECT userEmail as ownerEmail, CONCAT(CONCAT(UPPER(LEFT(userLname, 1)), RIGHT(userLname, LENGTH(userLname)-1)), ', ', \
+            CONCAT(UPPER(LEFT(userFname, 1)), RIGHT(userFname, LENGTH(userFname)-1))\
+            , ' ', UPPER(LEFT(userMname, 1)), '.') as ownerName, userAddress as ownerAddress, userContactno \ownerContactno FROM users\ WHERE userID =?";
+            let querydata = [ownerID]
+
+            mysqlController.selectQuery(connection.users_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                if(response != "error") {
+                    resultObj = serverResponse.serverResponse(200);
+                    resultObj.ownerInformation = response;
+                    res.json(resultObj);
+                }
+                else {
+                    resultObj = serverResponse.serverResponse(500);
+                    res.json(resultObj);
+                }
+            })
+        }
+        catch(error) {
+            commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            res.json(resultObj);
+        }
+    })
 module.exports = router;
