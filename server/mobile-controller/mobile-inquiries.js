@@ -15,9 +15,9 @@ router.route("/get-my-assumptions/:userID")
             resultObj = {};
         try{
             const { userID } = req.params;
-            const sql = "SELECT u.userID, v.vehicleID as ID, p.propertyID as propID, v.vehicleOwner as info1, v.vehicleBrand as info2, v.vehicleModel as info3, vi.vehicleIMAGES as info4, 'vehicle' as info5, p.propertyStatus as info6 FROM vehicles v INNER JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID INNER JOIN properties p ON p.propertyID = v.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?\
-            UNION ALL SELECT u.userID, j.jewelryID as ID, p.propertyID as propID, j.jewelryOwner as info1, j.jewelryName as info2, j.jewelryModel as info3, ji.jewelryIMG as info4, 'jewelry' as info5, p.propertyStatus as info6 FROM jewelries j INNER JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID INNER JOIN properties p ON p.propertyID = j.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?\
-            UNION ALL SELECT u.userID, r.realestateID as ID, p.propertyID as propID, r.realestateOwner as info1, r.realestateType as info2, '' as info3, ri.realestateIMG as info4, 'realestate' as info5, p.propertyStatus as info6 FROM realestates r INNER JOIN realestate_images ri ON r.realestateID = ri.realestateID INNER JOIN properties p ON p.propertyID = r.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =?",
+            const sql = "SELECT u.userID, u.userEmail, v.vehicleID as ID, p.propertyID as propID, v.vehicleOwner as info1, v.vehicleBrand as info2, v.vehicleModel as info3, vi.vehicleIMAGES as info4, 'vehicle' as info5, p.propertyStatus as info6 FROM vehicles v INNER JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID INNER JOIN properties p ON p.propertyID = v.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =? AND a.assumption_status = 'ACTIVE'\
+            UNION ALL SELECT u.userID, u.userEmail, j.jewelryID as ID, p.propertyID as propID, j.jewelryOwner as info1, j.jewelryName as info2, j.jewelryModel as info3, ji.jewelryIMG as info4, 'jewelry' as info5, p.propertyStatus as info6 FROM jewelries j INNER JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID INNER JOIN properties p ON p.propertyID = j.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =? AND a.assumption_status = 'ACTIVE'\
+            UNION ALL SELECT u.userID, u.userEmail, r.realestateID as ID, p.propertyID as propID, r.realestateOwner as info1, r.realestateType as info2, '' as info3, ri.realestateIMG as info4, 'realestate' as info5, p.propertyStatus as info6 FROM realestates r INNER JOIN realestate_images ri ON r.realestateID = ri.realestateID INNER JOIN properties p ON p.propertyID = r.propertyID INNER JOIN assumptions a ON a.propertyID = p.propertyID JOIN users u ON p.userID = u.userID AND a.userID =? AND a.assumption_status = 'ACTIVE'",
                 querydata = [userID, userID, userID];
             mysqlController.selectQuery(dbConn.assumptions_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
                 if(response != "error") {
@@ -90,8 +90,8 @@ router.route("/get-my-certain-assumed-property/:propertyType/:propertyID/:itemID
 
             switch(propertyType) {
                 case "vehicle":
-                    sql = "SELECT a.propertyID as propertyID, a.vehicleID  as itemID, a.vehicleOwner as owner, a.vehicleContactno as contactno, a.vehicleLocation as location, a.vehicleDownpayment as downpayment, a.vehicleInstallmentDuration as duration, a.vehicleDelinquent as delinquent, 'vehicle' as propertyType, '' as type, a.description as description, b.vehicleIMG as img, c.assumptionCount FROM vehicles a JOIN vehicle_images b ON a.vehicleID = b.vehicleID JOIN properties c ON c.propertyID = a.propertyID AND a.propertyID = ? AND a.vehicleID = ?";
-                    querydata = [propertyID, itemID];
+                    sql = "SELECT d.userEmail, e.assumptionID, a.propertyID as propertyID, a.vehicleID  as itemID, a.vehicleOwner as owner, a.vehicleContactno as contactno, a.vehicleLocation as location, a.vehicleDownpayment as downpayment, a.vehicleInstallmentDuration as duration, a.vehicleDelinquent as delinquent, 'vehicle' as propertyType, '' as type, a.description as description, b.vehicleIMAGES as img, c.assumptionCount FROM vehicles a JOIN vehicle_images b ON a.vehicleID = b.vehicleID JOIN properties c ON c.propertyID = a.propertyID JOIN users d ON (d.userID = c.userID) JOIN assumptions e ON (e.propertyID = c.propertyID AND e.propertyID =? AND e.assumption_status = 'ACTIVE') AND a.propertyID = ? AND a.vehicleID = ?";
+                    querydata = [propertyID, propertyID, itemID];
 
                     mysqlController.selectQuery(dbConn.realestates_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
                         if(response != "error") {
@@ -103,11 +103,11 @@ router.route("/get-my-certain-assumed-property/:propertyType/:propertyID/:itemID
                             resultObj = serverResponse.serverResponse(500);
                             res.json(resultObj);
                         }
-                    })
+                    });
                 break;
                 case "realestate":
-                    sql = "SELECT a.propertyID as propertyID, a.realestateID  as itemID, a.realestateOwner as owner, a.realestateContactno as contactno, a.realestateLocation as location, a.realestateDownpayment as downpayment, a.realestateInstallmentduration as duration, a.realestateDelinquent as delinquent, 'realestate' as propertyType, a.realestateType as type, a.realestateDescription as description, b.realestateIMG as img, c.assumptionCount FROM realestates a JOIN realestate_images b ON a.realestateID = b.realestateID JOIN properties c ON c.propertyID = a.propertyID AND a.propertyID = ? AND a.realestateID = ?";
-                    querydata = [propertyID, itemID];
+                    sql = "SELECT d.userEmail, e.assumptionID, a.propertyID as propertyID, a.realestateID  as itemID, a.realestateOwner as owner, a.realestateContactno as contactno, a.realestateLocation as location, a.realestateDownpayment as downpayment, a.realestateInstallmentduration as duration, a.realestateDelinquent as delinquent, 'realestate' as propertyType, a.realestateType as type, a.realestateDescription as description, b.realestateIMG as img, c.assumptionCount FROM realestates a JOIN realestate_images b ON a.realestateID = b.realestateID JOIN properties c ON c.propertyID = a.propertyID JOIN users d ON (d.userID = c.userID) JOIN assumptions e ON (e.propertyID = c.propertyID AND e.propertyID =? AND e.assumption_status = 'ACTIVE') AND a.propertyID = ? AND a.realestateID = ? AND c.propertyStatus = 'available'";
+                    querydata = [propertyID, propertyID, itemID];
 
                     mysqlController.selectQuery(dbConn.realestates_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
                         if(response != "error") {
@@ -119,10 +119,30 @@ router.route("/get-my-certain-assumed-property/:propertyType/:propertyID/:itemID
                             resultObj = serverResponse.serverResponse(500);
                             res.json(resultObj);
                         }
-                    })
+                    });
                 break;
                 case "jewelry":
-                    sql = "";
+                    sql = "SELECT d.userEmail, e.assumptionID, a.propertyID as propertyID, a.jewelryID  as itemID, a.jewelryOwner as owner, a.jewelryContactno as contactno, a.jewelryLocation as location, a.jewelryDownpayment as downpayment, a.jewelryInstallmentduration as duration, a.jewelryDelinquent as delinquent, 'jewelries' as propertyType, '' as type, a.jewelryDescription as description, b.jewelryIMG as img, c.assumptionCount FROM jewelries a JOIN jewelry_images b ON a.jewelryID = b.jewelryID JOIN properties c ON c.propertyID = a.propertyID JOIN users d ON (d.userID = c.userID) JOIN assumptions e ON (e.propertyID = c.propertyID AND e.propertyID =? AND e.assumption_status = 'ACTIVE') AND a.propertyID = ? AND a.jewelryID = ? AND c.propertyStatus = 'available'";
+                    querydata = [propertyID, propertyID, itemID];
+
+                    mysqlController.selectQuery(dbConn.jewelries_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                        if(response != "error") {
+                            if(response.length > 0) {
+                                resultObj = serverResponse.serverResponse(200);
+                                resultObj.certainProperty = response;
+                                res.json(resultObj);
+                            }
+                            else {
+                                resultObj = serverResponse.serverResponse(300);
+                                resultObj.certainProperty = response;
+                                res.json(resultObj);
+                            }
+                        }
+                        else {
+                            resultObj = serverResponse.serverResponse(500);
+                            res.json(resultObj);
+                        }
+                    });
                 break;
                 default:
                     commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo} - no propertyType`);
@@ -167,4 +187,34 @@ router.route("/get-owner-information/:ownerID")
             res.json(resultObj);
         }
     })
+
+router.route("/assumer-cancel-assumption")
+    .post((req, res) => {
+        const GLOBAL_FUNCTIONNAME = "assumerCancelAssumption()";
+        var lastAlgo = "@ACA1",
+            resultObj = {};
+        try{
+            const { userID, assumptionID, propertyID } = req.body;
+            const sql = "UPDATE assumptions SET assumption_status = 'INACTIVE' WHERE assumptionID =? AND userID =? AND propertyID =?",
+                querydata = [assumptionID, userID, propertyID];
+            mysqlController.updateQuery(dbConn.assumptions_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                if(response != "error") {
+                    resultObj = serverResponse.serverResponse(200);
+                    resultObj.message = "Your assumption was cancelled successfully.";
+                    res.json(resultObj);
+                }
+                else {
+                    resultObj = serverResponse.serverResponse(500);
+                    resultObj.message = "Something went wrong cancelling your request.";
+                    res.json(resultObj);
+                }
+            });
+        }
+        catch(error) {
+            commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            res.json(resultObj);
+        }
+    }); // this cancel the user assumptions;
+
 module.exports = router;

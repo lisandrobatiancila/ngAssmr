@@ -1,8 +1,2 @@
 
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS4","log_date":"2023_5_28"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS4","log_date":"2023_5_28"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS4","log_date":"2023_5_28"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS4","log_date":"2023_5_28"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS4","log_date":"2023_5_28"}
-{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1-Error: ER_BAD_FIELD_ERROR: Unknown column 'b.vehicleIMG' in 'field list'","log_date":"2023_5_28"}
-{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1-Error: ER_BAD_FIELD_ERROR: Unknown column 'b.vehicleIMG' in 'field list'","log_date":"2023_5_28"}
+{"fileName":"mobile-inquiries.js","functionName":"assumerCancelAssumption()","errorMessage":"@ACA1-TypeError: pool.getConnection is not a function","log_date":"2023_5_28"}
