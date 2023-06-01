@@ -143,6 +143,65 @@ router.route("/get-certain-vehicle/:propertyID")
         }
     }); // get a certain vehicle property
 
+router.route("/get-certain-realestate/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION ="getCertainRealestate()";
+        var lastAlgo = "@GCR1",
+            repsonseObj = {};
+        try{
+            lastAlgo = "@GCR2";
+            const { propertyID } = req.params;
+            const query = "SELECT a.*, b.assumptionCount, b.propertyStatus, c.realestateIMG FROM realestates a INNER JOIN properties b ON a.propertyID = b.propertyID INNER JOIN realestate_images c ON a.realestateID = c.realestateID AND b.propertyID = ?";
+            const querydata = [propertyID];
+
+            mysqlConn.selectQuery(dbConn.realestates_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.realestate = response;
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            });
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // get a certain realestate property
+
+router.route("/get-certain-jewelry/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTION = "getCertainJewelry()";
+        var lastAlgo = "",
+            repsonseObj = {};
+        try{
+            const { propertyID } = req.params;
+            const query = "SELECT a.*, b.assumptionCount, b.propertyStatus, c.jewelryIMG FROM jewelries a INNER JOIN properties b ON a.propertyID = b.propertyID INNER JOIN jewelry_images c ON a.jewelryID = c.jewelryID AND b.propertyID = ?";
+            const querydata = [propertyID];
+
+            mysqlConn.selectQuery(dbConn.jewelries_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                if(response != "error") {
+                    repsonseObj = serverResponse.serverResponse(200);
+                    repsonseObj.jewelry = response;
+                    res.json(repsonseObj);
+                }
+                else {
+                    repsonseObj = serverResponse.serverResponse(500);
+                    res.json(repsonseObj);
+                }
+            });
+        }
+        catch(error) {
+            commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, `${lastAlgo}-${error}`);
+            repsonseObj = serverResponse.serverResponse(500);
+            res.json(repsonseObj);
+        }
+    }); // get a certain jewelry property
+
 router.route("/get-assumer-information/:userID")
     .get((req, res) => {
         const GLOBAL_FUNCTION ="getAssumerInformation()";
@@ -170,7 +229,7 @@ router.route("/get-assumer-information/:userID")
             repsonseObj = serverResponse.serverResponse(500);
             res.json(repsonseObj);
         }
-    });
+    }); // get assumer-information
 
 router.route("/process-assumption-request")
     .post((req, res) => {
@@ -192,31 +251,73 @@ router.route("/process-assumption-request")
                 lastAlgo = "@PAR2";
                 let query = "SELECT userID, propertyID FROM properties WHERE propertyID =? AND userID =?",
                     querydata = [propertyID, userID];
-                mysqlConn.selectQuery(dbConn.properties_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                mysqlConn.selectQuery(dbConn.properties_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], async (response) => {
                     if(response != "error") {
                         if(response.length == 0) {
-                            lastAlgo = "@PAR3";
-                            query = "INSERT INTO assumers (userID, assumer_address, assumer_income, assumer_work) VALUES?";
-                            querydata = [[userID, address, salary, work]];
-                            mysqlConn.insertQuery(dbConn.assumers_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
-                                if(response != "error") {
-                                    lastAlgo = "@PAR4";
-                                    query = "SELECT NOW() as now, MAX(assumerID) as assumerID FROM assumers LIMIT 1";
-                                    querydata = [[userID, propertyID]];
-                                    
-                                    mysqlConn.selectQuery(dbConn.assumers_table, query, [], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
-                                        if(response != "error") {
-                                            lastAlgo = "@PAR5";
-                                            query = "INSERT INTO assumptions(userID, propertyID, assumerID, transaction_date) VALUES?";
-                                            
-                                            const { assumerID, now } = response[0];
-                                            querydata = [[userID, propertyID, assumerID, now]];
+                            // check if the user assumed this property already; we need to refraint it from assuming again
+                            const checkAssumption = await new Promise((resolve, reject) => {
+                                lastAlgo = "@PAR3";
+                                const sql = "SELECT assumptionID FROM assumptions WHERE propertyID =? AND userID =?";
+                                mysqlConn.selectQuery(dbConn.assumptions_table, sql, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                                    if(response != "error") {
+                                        if(response.length == 0) {
+                                            resolve({server_error: false, should_assume: true})
+                                        }
+                                        else {
+                                            resolve({server_error: false, should_assume: false})
+                                        }
+                                    }
+                                    else {
+                                        commobLib.errorLogs(GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo);
+                                        resolve({server_error: true, should_assume: false})
+                                    }
+                                })
+                            }); // end of promise
+                            // end check if the user assumed this property already; we need to refraint it from assuming again
 
-                                            mysqlConn.insertQuery(dbConn.assumptions_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                            if(!checkAssumption.server_error) {
+                                if(checkAssumption.should_assume) {
+                                    lastAlgo = "@PAR4";
+                                    query = "INSERT INTO assumers (userID, assumer_address, assumer_income, assumer_work) VALUES?";
+                                    querydata = [[userID, address, salary, work]];
+                                    mysqlConn.insertQuery(dbConn.assumers_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                                        if(response != "error") {
+                                            lastAlgo = "@PAR4";
+                                            query = "SELECT NOW() as now, MAX(assumerID) as assumerID FROM assumers LIMIT 1";
+                                            querydata = [[userID, propertyID]];
+                                            
+                                            mysqlConn.selectQuery(dbConn.assumers_table, query, [], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                                                 if(response != "error") {
-                                                    repsonseObj = serverResponse.serverResponse(200);
-                                                    repsonseObj.message = "Property assumption was successfull!"
-                                                    res.json(repsonseObj);
+                                                    lastAlgo = "@PAR5";
+                                                    query = "INSERT INTO assumptions(userID, propertyID, assumerID, assumption_status, transaction_date) VALUES?";
+                                                    
+                                                    const { assumerID, now } = response[0];
+                                                    querydata = [[userID, propertyID, assumerID, 'ACTIVE', now]];
+
+                                                    mysqlConn.insertQuery(dbConn.assumptions_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
+                                                        if(response != "error") {
+                                                            query=  "UPDATE properties SET assumptionCount = (assumptionCount+1) WHERE propertyID =?";
+                                                            querydata = [propertyID]
+                                                            
+                                                            mysqlConn.updateQuery(dbConn.properties_table, query, querydata, [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], function(response) {
+                                                                if(response != "error") {
+                                                                    repsonseObj = serverResponse.serverResponse(200);
+                                                                    repsonseObj.message = "Property assumption was successfull!"
+                                                                    res.json(repsonseObj);
+                                                                }
+                                                                else {
+                                                                    repsonseObj = serverResponse.serverResponse(500);
+                                                                    response.message = "We can not process your request at a moment!"
+                                                                    res.json(repsonseObj);
+                                                                }
+                                                            })
+                                                        }
+                                                        else {
+                                                            repsonseObj = serverResponse.serverResponse(500);
+                                                            response.message = "We can not process your request at a moment!"
+                                                            res.json(repsonseObj);
+                                                        }
+                                                    });
                                                 }
                                                 else {
                                                     repsonseObj = serverResponse.serverResponse(500);
@@ -233,11 +334,17 @@ router.route("/process-assumption-request")
                                     });
                                 }
                                 else {
-                                    repsonseObj = serverResponse.serverResponse(500);
-                                    response.message = "We can not process your request at a moment!"
+                                    repsonseObj = serverResponse.serverResponse(400);
+                                    repsonseObj.message = "You can not assume a property twice!"
                                     res.json(repsonseObj);
                                 }
-                            });
+                            }
+                            else {
+                                repsonseObj = serverResponse.serverResponse(500);
+                                repsonseObj.message = "Sorry we can not process your request, at this time!"
+                                res.json(repsonseObj);
+                            }
+                            
                         } // check if assumer is the property owner
                         else {
                             repsonseObj = serverResponse.serverResponse(400);

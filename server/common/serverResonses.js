@@ -8,6 +8,10 @@ module.exports = {
                 message = "SUCCESS"
                 status = 1
             break;
+            case 300:
+                message = "SUCCESS";
+                status = 0
+            break;
             case 400:
                 message = "FILE_NOT_FOUND"
                 status = 0

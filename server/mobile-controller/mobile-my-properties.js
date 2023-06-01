@@ -46,9 +46,10 @@ router.route("/mobile-my-vehicle-properties")
 router.route("/mobile-my-jewelry-properties")
     .post((req, res) => {
         const GLOBAL_FUNCTION_NAME = "mobileMyJewelryProperties()";
-        var lastAlgo = "",
+        var lastAlgo = "@MJP1",
             responseObj = {};
         try{
+            lastAlgo = "@MJP2";
             const { userID } = req.body;
             const query = "SELECT a.*, b.jewelryIMG, c.assumptionCount, c.propertyStatus FROM jewelries a INNER JOIN jewelry_images b ON a.jewelryID = b.jewelryID INNER JOIN properties c ON c.propertyID = a.propertyID AND c.propertyType = 'jewelry' AND c.userID = ? AND c.propertyStatus <> 'removed'",
                 querydata = [userID];

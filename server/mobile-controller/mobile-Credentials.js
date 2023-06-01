@@ -117,7 +117,7 @@ router.route("/mobile-signin")
             if(validationPass) {
                 lastAlgo = "@MS2";
                 password = sha1(password);
-                let sql = "SELECT a.userID, a.accountEmail, a.accountPassword, CONCAT(CONCAT(UCASE(LEFT(b.userLname, 1))), CONCAT(RIGHT(b.userLname, LENGTH(b.userLname)-1)), ', ', CONCAT(LEFT(b.userFname, 1), RIGHT(b.userFname, LENGTH(b.userFname)-1)), ' ', UCASE(LEFT(b.userMname, 1)), '.') as fullName FROM accounts a JOIN users b ON b.userID = a.userID WHERE accountEmail =?";
+                let sql = "SELECT a.userID, a.accountEmail, a.accountPassword, CONCAT(CONCAT(UCASE(LEFT(b.userLname, 1))), CONCAT(RIGHT(b.userLname, LENGTH(b.userLname)-1)), ', ', CONCAT(UPPER(LEFT(b.userFname, 1)), RIGHT(b.userFname, LENGTH(b.userFname)-1)), ' ', UCASE(LEFT(b.userMname, 1)), '.') as fullName FROM accounts a JOIN users b ON b.userID = a.userID WHERE accountEmail =?";
                 const sqlData = [email];
 
                 mysqlCRUD.selectQuery(mysqlDBConn.accounts_table, sql, sqlData, [GLOBAL_FILE_NAME, `${GLOBAL_ACTION_NAME}-${lastAlgo}`], (response) => {
