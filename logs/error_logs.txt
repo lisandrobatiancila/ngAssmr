@@ -1,8 +1,4 @@
 
-<<<<<<< HEAD
-{"fileName":"browsePropertyServerController.js","functionName":"BAVehicleProperties()","errorMessage":"@BAVP2-Error: ER_BAD_DB_ERROR: Unknown database 'assmr'","log_date":"2023_4_18"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin-@MS2","errorMessage":"undefined-Error: ER_BAD_DB_ERROR: Unknown database 'assmr'","log_date":"2023_6_1"}
-{"fileName":"mobile-Credentials.js","functionName":"mobile-signin","errorMessage":"@MS5","log_date":"2023_6_1"}
-=======
-{"fileName":"mobile-inquiries.js","functionName":"assumerCancelAssumption()","errorMessage":"@ACA1-TypeError: pool.getConnection is not a function","log_date":"2023_5_28"}
->>>>>>> 880db0bf09b203d32088fcaa88a55f1dfd93067c
+{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:29:57"}
+{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:30:26"}
+{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:31:21"}

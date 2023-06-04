@@ -2,11 +2,12 @@ const fs = require("fs")
 
 module.exports = {
     errorLogs: function(fileName, functionName, errorMessage) {
+        const date = new Date();
         let errorObj = {
             fileName,
             functionName,
             errorMessage,
-            log_date: `${new Date().getFullYear()}_${new Date().getMonth()+1}_${new Date().getDate()}`
+            log_date: `${date.getFullYear()}_${(date.getMonth()+1).toString().padStart(2, '0')}_${date.getDate().toString().padStart(2, '0')} :${date.getHours().toString().padStart(2, 0)}:${date.getMinutes().toString().padStart(2, 0)}:${date.getSeconds().toString().padStart(2, 0)}`
         }
 
         fs.appendFileSync("logs/error_logs.txt", "\n"+JSON.stringify(errorObj, 2))

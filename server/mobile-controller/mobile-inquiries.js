@@ -50,7 +50,7 @@ router.route("/get-my-inquired-properties/:userID")
         try{
             lastAlgo = "@GMIP2";
             const { userID } = req.params;
-            const sql = "SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, vi.vehicleIMAGES as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN vehicles v ON v.propertyID = a.propertyID JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID UNION ALL SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, ji.jewelryIMG as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN jewelries j ON j.propertyID = a.propertyID JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID UNION ALL SELECT a.assumerID, c.userFname, c.userMname, c.userLname, c.userContactno, c.userEmail, b.assumptionCount, b.propertyStatus, ri.realestateIMG as image FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN users c ON a.userID = c.userID JOIN realestates r ON r.propertyID = a.propertyID JOIN realestate_images ri ON r.realestateID = ri.realestateID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' AND b.userID != c.userID";
+            const sql = "SELECT a.propertyID, a.assumerID, v.vehicleID as itemID, v.vehicleBrand as info1, v.vehicleModel as info2, b.assumptionCount, b.propertyStatus, vi.vehicleIMAGES as image, 'vehicle' as type FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN vehicles v ON v.propertyID = a.propertyID JOIN vehicle_images vi ON v.vehicleID = vi.vehicleID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' GROUP BY a.propertyID UNION ALL SELECT  a.propertyID, a.assumerID, j.jewelryID as itemID, j.jewelryName as info1, j.jewelryModel as info2, b.assumptionCount, b.propertyStatus, ji.jewelryIMG as image, 'jewelry' as type FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN jewelries j ON j.propertyID = a.propertyID JOIN jewelry_images ji ON j.jewelryID = ji.jewelryID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' UNION ALL SELECT  a.propertyID, a.assumerID, r.realestateID as itemID, r.realestateType as info1, '' as info2 , b.assumptionCount, b.propertyStatus, ri.realestateIMG as image, 'realestate' as type FROM assumptions a JOIN properties b ON a.propertyID = b.propertyID JOIN realestates r ON r.propertyID = a.propertyID JOIN realestate_images ri ON r.realestateID = ri.realestateID WHERE b.userID = ? AND a.assumption_status = 'ACTIVE' GROUP BY a.propertyID";
             const querydata = [userID, userID, userID];
 
             mysqlController.selectQuery(dbConn.users_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], function(response) {
@@ -61,7 +61,7 @@ router.route("/get-my-inquired-properties/:userID")
                     res.json(resultObj);
                 }
                 else {
-                    commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`)
+                    commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}`)
                     resultObj = serverResponse.serverResponse(500);
                     res.json(resultObj);
                 }
@@ -74,6 +74,85 @@ router.route("/get-my-inquired-properties/:userID")
         }
     }); // this get the active user posted properties that was assumed by other users
 
+router.route("/get-all-assumer-information/:propertyID")
+    .get((req, res) => {
+        const GLOBAL_FUNCTIONNAME = "getAllAssumerInformation()";
+        var lastAlgo = "@GAAI1",
+            resultObj = {};
+        try{
+            lastAlgo = "@GAAI2";
+            const { propertyID } = req.params;
+            const sql = "SELECT (\
+                SELECT COUNT(a.assumerID) FROM assumers a JOIN assumptions b ON a.assumerID = b.assumerID AND b.propertyID =?\
+            ) AS TotalAssumer\
+            , a.assumerID, b.propertyID, b.userID, a.assumer_address, a.assumer_income, a.assumer_work, \
+            DATE_FORMAT(b.transaction_date, '%M %D, %Y') as transaction_date, c.userEmail, CONCAT(CONCAT(UPPER(\
+            LEFT(c.userLname, 1)), CONCAT(\
+            RIGHT(c.userLname, LENGTH(c.userLname)-1))), ', ', CONCAT(UPPER(\
+            LEFT(c.userFname, 1)),\
+            RIGHT(c.userFname, LENGTH(c.userFname)-1)), ' ', UPPER(\
+            LEFT(c.userMname, 1)), '.') AS fullName\
+            FROM assumers a\
+            JOIN assumptions b ON (a.assumerID = b.assumerID AND b.assumption_status = 'ACTIVE' AND b.propertyID =?) \
+            JOIN users c ON (c.userID = a.userID)";
+            const querydata = [propertyID, propertyID];
+
+            mysqlController.selectQuery(dbConn.assumers_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                if(response != "error") {
+                    if(response.length > 0) {
+                        resultObj = serverResponse.serverResponse(200);
+                        resultObj.assumerLists = response;
+                        res.json(resultObj);
+                    }
+                    else {
+                        resultObj = serverResponse.serverResponse(300)
+                        resultObj.message = "No assumer information listed."
+                        res.json(resultObj);
+                    }
+                }
+                else {
+                    resultObj = serverResponse.serverResponse(500);
+                    resultObj.assumerLists = [];
+                    res.json(resultObj);
+                }
+            })
+        }
+        catch(error) {
+            commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            res.json(resultObj);
+        }
+    }); // this get all assumer information of this property; 
+
+router.route("/cancel-assumer-assumption")
+    .post((req, res) => {
+        const GLOBAL_FUNCTIONNAME = "cancelAssumerAssumption()";
+        var lastAlgo = "@CAA1",
+            resultObj = {};
+        try{
+            lastAlgo = "@CAA2";
+            const { assumerID } = req.body;
+            const sql = "UPDATE assumptions SET assumption_status = 'INACTIVE' WHERE assumerID =?",
+                querydata = [assumerID];
+            mysqlController.updateQuery(dbConn.assumptions_table, sql, querydata, [GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo], (response) => {
+                if(response != "error") {
+                    resultObj = serverResponse.serverResponse(200);
+                    resultObj.message = "Assumption was cancelled successfully."
+                    res.json(resultObj);
+                }
+                else {
+                    commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, lastAlgo)
+                    resultObj = serverResponse.serverResponse(500);
+                    res.json(resultObj);
+                }
+            })
+        }
+        catch(error) {
+            commonLib.errorLogs(GLOBAL_FILENAME, GLOBAL_FUNCTIONNAME, `${lastAlgo}-${error}`);
+            resultObj = serverResponse.serverResponse(500);
+            res.json(resultObj);
+        }
+    }); // property owner remove / cancel the assumer assumptions
 /*
     - The top is Inquired Property
 */
@@ -87,7 +166,7 @@ router.route("/get-my-certain-assumed-property/:propertyType/:propertyID/:itemID
             const { propertyType, propertyID, itemID } = req.params;
             let sql = "",
                 querydata = [];
-
+                
             switch(propertyType) {
                 case "vehicle":
                     sql = "SELECT d.userEmail, e.assumptionID, a.propertyID as propertyID, a.vehicleID  as itemID, a.vehicleOwner as owner, a.vehicleContactno as contactno, a.vehicleLocation as location, a.vehicleDownpayment as downpayment, a.vehicleInstallmentDuration as duration, a.vehicleDelinquent as delinquent, 'vehicle' as propertyType, '' as type, a.description as description, b.vehicleIMAGES as img, c.assumptionCount FROM vehicles a JOIN vehicle_images b ON a.vehicleID = b.vehicleID JOIN properties c ON c.propertyID = a.propertyID JOIN users d ON (d.userID = c.userID) JOIN assumptions e ON (e.propertyID = c.propertyID AND e.propertyID =? AND e.assumption_status = 'ACTIVE') AND a.propertyID = ? AND a.vehicleID = ?";
