@@ -1,4 +1,0 @@
-
-{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:29:57"}
-{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:30:26"}
-{"fileName":"mobile-inquiries.js","functionName":"getCertainAssumedProperty()","errorMessage":"@GCAP1 - no propertyType","log_date":"2023_06_04 :12:31:21"}

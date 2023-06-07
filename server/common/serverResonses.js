@@ -8,6 +8,9 @@ module.exports = {
                 message = "SUCCESS"
                 status = 1
             break;
+            case 201:
+                message = "SUCCESS_NO_RECORDS";
+                status = 1
             case 300:
                 message = "SUCCESS";
                 status = 0
