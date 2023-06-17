@@ -18,25 +18,47 @@
             <div class="position-fixed bg-dark text-white h-100 w-sidebar">
                 <ul class="nav flex-column mt-3">
                     <li class="nav-item" ng-class="{'dashboard_active': currURL === '/dashboard'}">
-                        <a href="#!dashboard" class="p-3 text-capitalize">dashboard</a>
+                        <a href="#!dashboard" class="p-3 text-capitalize">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            dashboard
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="p-3 text-capitalize">
+                        <a href="#!dashboard#my-property" class="p-3 text-capitalize">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;
                             my property &nbsp;&nbsp;&nbsp;
                             <span class="fas fa-chevron-right"></span>
                         </a>
                     </li>
                     <li class="nav-item" ng-class="{'dashboard_active': currURL === 'feedbacks'}">
-                        <a href="#!dashboard#feedbacks" class="p-3 text-capitalize">feedbacks</a>
+                        <a href="#!dashboard#feedbacks" class="p-3 text-capitalize">
+                            <i class="fa fa-rss"></i> &nbsp;&nbsp;
+                            feedbacks
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="p-3 text-capitalize">messages</a>
+                        <a href="#" class="p-3 text-capitalize">
+                            <i class="fa fa-comments"></i> &nbsp;&nbsp;
+                            messages
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#!dashboard/inquiries" class="p-3 text-capitalize">inquiries</a>
+                        <a href="#!dashboard/inquiries" class="p-3 text-capitalize">
+                            <i class="fa fa-credit-card" aria-hidden="true"></i> &nbsp;&nbsp;
+                            inquiries
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="p-3 text-capitalize">settings</a>
+                        <a href="#" class="p-3 text-capitalize">
+                            <i class="fa fa-cog"></i> &nbsp;&nbsp;
+                            settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="p-3 text-capitalize">
+                            <i class="fa fa-trash"></i> &nbsp;&nbsp;
+                            logout
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -44,6 +66,9 @@
         <div class="col p-3 mt-5">
             <div ng-switch="currURL">
                 <div ng-switch-when="/dashboard">
+                    <div ng-include="templateVIEW"></div>
+                </div>
+                <div ng-switch-when="my-property">
                     <div ng-include="templateVIEW"></div>
                 </div>
                 <div ng-switch-when="feedbacks" ng-controller="feedbacksController">

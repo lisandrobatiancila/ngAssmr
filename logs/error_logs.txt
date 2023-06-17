@@ -1,0 +1,13 @@
+
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:35:10"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:35:10"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:35:13"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:35:13"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:35:22"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:35:22"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:35:25"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:35:25"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:35:29"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:35:29"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-Error: UNKNOWN_CODE_PLEASE_REPORT: Table 'assmr.accounts' doesn't exist in engine","log_date":"2023_06_17 :16:38:10"}
+{"fileName":"accountsServerController.js","functionName":"loginUser()","errorMessage":"@LU2-error","log_date":"2023_06_17 :16:38:10"}

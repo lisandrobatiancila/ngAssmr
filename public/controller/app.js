@@ -40,7 +40,7 @@ assmrAPP.config(function($routeProvider, $locationProvider, $provide) {
             templateUrl: "views/browse-property/viewCertPropDetails.html",
             controller: "viewPropDetailsController"
         })
-        .otherwise("/")
+        // .otherwise("/")
 })
 
 function modalMessages(uibModal, response) {
@@ -95,6 +95,7 @@ assmrAPP.controller("headerController", ["$scope", "$location", function($scope,
 
 assmrAPP.service("checkUserIsLoggedIn", function() {
     this.isLoggedIn = function($http, $headers, $body) {
+        // nag ka bali ang parameters si $headers ug $body -_- na AMAW ni sila diri
         return new Promise((resolve, reject) => {
             let url = HELPER.apiRoot("isLoggedIn")
             $http.post(url, $headers, $body)

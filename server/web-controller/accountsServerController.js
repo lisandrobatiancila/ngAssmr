@@ -158,15 +158,14 @@ function isLoggedIn(req, res) {
     var responseObject = {}
     var lastAlgo = "@ILI1"
     try{
-        console.log(req.headers);
-        let reqSession = typeof req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"] == "undefined"?".":req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"]
-        let reqUserName = req.body["userName"] == "undefined"?".":req.body["userName"]
+        let reqSession = typeof req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"] == "undefined"? "." : req.headers["4ad0079e4029363452dd640ae4c2d812374b7d6f"]
+        let reqUserName = req.body["userName"] == "undefined"? ".": req.body["userName"]
         
         let isValid = reqSession != "." && reqUserName != "."
-        
         if(isValid) {
             lastAlgo = "@ILI2"
-            console.log(req.cookies);
+            responseObject = serverResponse.serverResponse(200);
+            res.json(responseObject)
         }
         else {
             responseObject = serverResponse.serverResponse(401)

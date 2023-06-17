@@ -1,4 +1,25 @@
-assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$rootScope", "$location", "$uibModal", "$http", "$timeout", function($scope, $routeParams, $route, $rootScope, $location, $uibModal, $http, $timeout) {
+assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$rootScope", "$location", "$uibModal", "$http", "$timeout", "checkUserIsLoggedIn", "$cookies", function($scope, $routeParams, $route, $rootScope, $location, $uibModal, $http, $timeout, checkUserIsLoggedIn, $cookies) {
+    const header = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+            "4ad0079e4029363452dd640ae4c2d812374b7d6f": $cookies.get("4ad0079e4029363452dd640ae4c2d812374b7d6f"),
+        },
+        withCredentials: true
+    };
+
+    const body = $.param({
+        userName: $cookies.get("72cebfd3ca216eaf5a69a7d20ecbf92040fee5e5")
+    });
+    checkUserIsLoggedIn.isLoggedIn($http, body, header)
+        .then(response => {
+            const respObj = response.data;
+            console.log(respObj);
+            if(respObj.code == 200)
+                $location.url('/dashboard')
+        })
+        .catch(error => {
+            console.log(error);
+        })
     $scope.headerTemplateURL = "/views/static/header.html"
     $scope.current_route_link = ""
     $scope.current_template = ""
@@ -27,9 +48,11 @@ assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$roo
             key: "browse-property",
             templateUrl: "views/browse-property/browse-property.html"
         }
-    ]
+    ];
+    
     $scope.signupUserForm = null
-    $scope.errorObjects = {}
+    $scope.errorObjects = {};
+
     $scope.pageActionMessage = {
         message: "signup form",
         has_error: false,
@@ -112,6 +135,7 @@ assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$roo
 
             })
     }
+
     $scope.resetUserForm = function(userForm) {
         resetFormFields($scope, userForm)
     }
@@ -119,7 +143,8 @@ assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$roo
         try{
             $scope.current_route_link = $location.hash()
             $scope.current_template = $scope.template_lists.filter(tl => tl.key === $scope.current_route_link)[0].templateUrl
-
+            console.log($scope.current_route_link);
+            console.log($scope.current_template);
             if($scope.current_route_link === "login") {
                 loginModal = $uibModal.open({
                     templateUrl: $scope.current_template,
@@ -134,74 +159,102 @@ assmrAPP.controller("homeController", ["$scope", "$routeParams", "$route", "$roo
         }
         catch(error) {
             // $location.path("#information")
+            console.log(error);
         }
     });
 }])
 
-assmrAPP.controller("loginController", ["$scope", "$location", "$uibModalInstance", "$http", "$cookies", function($scope, $location, $uibModalInstance, $http, $cookies) {
-    $scope.submitLoginUserForm = function(loginUserForm) {
-        $scope.errorObjects = {}
-        let email = loginUserForm.$$element[0][0].value,
-            password = loginUserForm.$$element[0][1].value
+assmrAPP.controller("loginController", ["$scope", "$location", "$uibModalInstance", "$http", "$cookies", "checkUserIsLoggedIn", function($scope, $location, $uibModalInstance, $http, $cookies, checkUserIsLoggedIn) {
 
-        let validateFields = [email, password]
-        for(let idx = 0; idx < 2; idx++) {
-            if(!/[^\s]/.test(validateFields[idx])) {
-                $scope.errorObjects = {
-                    errorInfo: {
-                        fields: idx === 0?!/[^\s]/.test(validateFields[idx])?"email":"":
-                            idx === 1?!/[^\s]/.test(validateFields[idx])?"password":"":"",
-                        message: idx === 0?!/[^\s]/.test(validateFields[idx])?"Empty email":"":
-                        idx === 1?!/[^\s]/.test(validateFields[idx])?"Empty password":"":"",
-                        has_error: true,
-                        has_success: false
-                    }
-                }
-                break
-            }
-        }
+    const header = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+            "4ad0079e4029363452dd640ae4c2d812374b7d6f": $cookies.get("4ad0079e4029363452dd640ae4c2d812374b7d6f"),
+        },
+        withCredentials: true
+    };
 
-        if(Object.keys($scope.errorObjects).length === 0) { //means validation-passed
-            let config = {
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-                    withCredentials: true
-                }
-            }
-            let data = $.param({
-                email,
-                password
-            })
-            saveloginUserForm($http, data, config, (response) => {
-                let data = response.data
-                if(data.status === 1) {
-                    $scope.errorObjects = {
-                        errorInfo: {
-                            message: data.message,
-                            has_error: false,
-                            has_success: true
+    const body = $.param({
+        userName: $cookies.get("72cebfd3ca216eaf5a69a7d20ecbf92040fee5e5")
+    });
+    
+    checkUserIsLoggedIn.isLoggedIn($http, body, header)
+        .then(response => {
+            const respObj = response.data;
+            console.log(respObj);
+            if(respObj.code == 200) {
+                $location.url("/dashboard")
+                $uibModalInstance.close()
+            } // redirect to dashboard
+            else {
+                $scope.submitLoginUserForm = function(loginUserForm) {
+                    $scope.errorObjects = {}
+                    let email = loginUserForm.$$element[0][0].value,
+                        password = loginUserForm.$$element[0][1].value
+            
+                    let validateFields = [email, password]
+                    for(let idx = 0; idx < 2; idx++) {
+                        if(!/[^\s]/.test(validateFields[idx])) {
+                            $scope.errorObjects = {
+                                errorInfo: {
+                                    fields: idx === 0?!/[^\s]/.test(validateFields[idx])?"email":"":
+                                        idx === 1?!/[^\s]/.test(validateFields[idx])?"password":"":"",
+                                    message: idx === 0?!/[^\s]/.test(validateFields[idx])?"Empty email":"":
+                                    idx === 1?!/[^\s]/.test(validateFields[idx])?"Empty password":"":"",
+                                    has_error: true,
+                                    has_success: false
+                                }
+                            }
+                            break
                         }
                     }
-                    $cookies.put("4ad0079e4029363452dd640ae4c2d812374b7d6f", data.sessionCookie)
-                    $cookies.put("72cebfd3ca216eaf5a69a7d20ecbf92040fee5e5", data.userEmail)
-                    $location.url("/dashboard")
+            
+                    if(Object.keys($scope.errorObjects).length === 0) { //means validation-passed
+                        let config = {
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+                                withCredentials: true
+                            }
+                        }
+                        let data = $.param({
+                            email,
+                            password
+                        })
+                        saveloginUserForm($http, data, config, (response) => {
+                            let data = response.data
+                            if(data.status === 1) {
+                                $scope.errorObjects = {
+                                    errorInfo: {
+                                        message: data.message,
+                                        has_error: false,
+                                        has_success: true
+                                    }
+                                }
+                                $cookies.put("4ad0079e4029363452dd640ae4c2d812374b7d6f", data.sessionCookie)
+                                $cookies.put("72cebfd3ca216eaf5a69a7d20ecbf92040fee5e5", data.userEmail)
+                                $location.url("/dashboard")
+                                $uibModalInstance.close()
+                            }
+                            else if(data.status === 0)
+                                $scope.errorObjects = {
+                                    errorInfo: {
+                                        message: data.message,
+                                        has_error: true,
+                                        has_success: false
+                                    }
+                                }
+                        })
+                    }
+                }
+                $scope.signupUserForm = function() {
+                    $location.url("#signup")
                     $uibModalInstance.close()
                 }
-                else if(data.status === 0)
-                    $scope.errorObjects = {
-                        errorInfo: {
-                            message: data.message,
-                            has_error: true,
-                            has_success: false
-                        }
-                    }
-            })
-        }
-    }
-    $scope.signupUserForm = function() {
-        $location.url("#signup")
-        $uibModalInstance.close()
-    }
+            } // login functionality
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }])
 
 function saveUserForm($http, data, headers, cb) {
