@@ -289,10 +289,10 @@ router.route("/process-assumption-request")
                                             mysqlConn.selectQuery(dbConn.assumers_table, query, [], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                                                 if(response != "error") {
                                                     lastAlgo = "@PAR5";
-                                                    query = "INSERT INTO assumptions(userID, propertyID, assumerID, assumption_status, transaction_date) VALUES?";
+                                                    query = "INSERT INTO assumptions(userID, propertyID, assumerID, assumption_status, notification_read, transaction_date) VALUES?";
                                                     
                                                     const { assumerID, now } = response[0];
-                                                    querydata = [[userID, propertyID, assumerID, 'ACTIVE', now]];
+                                                    querydata = [[userID, propertyID, assumerID, 'ACTIVE', 'unread', now]];
 
                                                     mysqlConn.insertQuery(dbConn.assumptions_table, query, [querydata], [GLOBAL_FILE_NAME, GLOBAL_FUNCTION, lastAlgo], (response) => {
                                                         if(response != "error") {
